@@ -1,0 +1,116 @@
+a, abbr, acronym, address, area, b, bdo, big, blockquote, body, button, caption, cite,
+code, col, colgroup, dd, del, dfn, div, dl, dt, em, fieldset, form, h1,h2, h3, h4, h5, h6,
+hr, html, i, img, ins, kbd, label, legend, li, map, object, ol, p, param, pre, q, samp, small,
+span, strong, sub, sup, table, tbody, td, textarea, tfoot, th, thead, tr, tt, ul, var {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: none;
+    vertical-align: baseline;
+    background-color: transparent;
+    text-decoration:none;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+body {
+    font-size: 62.5%;
+    background: #f9f3ed;
+}
+
+form, h1, h2 {
+    padding: 10px;
+}
+
+body, input, textarea, select, button {
+    font-family: 'Raleway', sans-serif;
+}
+
+h1, h2, h3, p, ul, ol {
+    margin-bottom: 1em;
+    font-weight: 400;
+}
+
+h1 {
+    font-size: 3.2em;
+    background: #53D6C2;
+}
+
+h2 {
+    font-size: 2.6em;
+}
+
+h3 {
+    font-size: 2.2em;
+}
+
+h3 {
+    font-size: 1.8em;
+}
+
+p, li, table, label, legend {
+    font-size: 1.6em;
+    line-height: 1.5;
+}
+
+input, textarea, select, button {
+    font-size: 1.6em;
+}
+
+.accessible {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+
+label {
+    display: block;
+}
+
+fieldset {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+fieldset div {
+    padding-bottom: 10px;
+}
+
+input[type=number]{
+    width: 40px;
+}
+
+input, textarea, select, button {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background: #fff;
+}
+
+input[type=submit], button {
+    background: #ef8669;
+    color: #fff;
+    border: 0;
+}
+
+input[type=submit] {
+    font-size: 2.2em;
+}
+
+fieldset.description input, fieldset.description select, textarea {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+}
+
+fieldset.name input {
+    font-size: 2.2em;
+}
