@@ -1,4 +1,5 @@
 import React from 'react';
+import Navigation from './Navigation';
 import Ingredients from './Ingredients';
 import RecipeMethod from './RecipeMethod';
 
@@ -6,6 +7,7 @@ module.exports = React.createClass({
 	render: function(){
 		return (
 			<div>
+				<Navigation />
 				<h2>Create recipe</h2>
 				<form onSubmit={this.handleSubmit}>
 					<fieldset className="name description">
