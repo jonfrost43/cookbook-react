@@ -5,7 +5,7 @@ import recipes from '../data/recipes';
 export default React.createClass({
 	render: function(){
 		var recipe = recipes.filter(function(recipe){
-			return recipe.id = this.props.params.recipeId;
+			return recipe.id === parseInt(this.props.params.recipeId, 10);
 		}, this)[0];
 
 		return (
