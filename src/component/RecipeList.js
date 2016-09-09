@@ -6,7 +6,7 @@ export default React.createClass({
 		return (
 			<ul className="recipeList">
 				{this.props.data.map(function(recipe){
-					var path = '/recipe/'+recipe.id+'/'+recipe.name.replace(' ', '-').toLowerCase();
+					var path = '/recipe/'+recipe.id+'/'+recipe.name.replace(/\s/g, '-').toLowerCase();
 					return <li key={recipe.id}><Link to={path}>{recipe.name}<img src={recipe.image} /></Link></li>;
 				})}
 			</ul>
