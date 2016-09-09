@@ -3,7 +3,7 @@ import Navigation from './Navigation';
 import Ingredients from './Ingredients';
 import RecipeMethod from './RecipeMethod';
 
-module.exports = React.createClass({
+export default React.createClass({
 	render: function(){
 		return (
 			<div>

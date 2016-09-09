@@ -2,7 +2,7 @@ import React from 'react';
 import Navigation from './Navigation';
 import recipes from '../data/recipes';
 
-module.exports = React.createClass({
+export default React.createClass({
 	render: function(){
 		var recipe = recipes.filter(function(recipe){
 			return recipe.id = this.props.params.recipeId;

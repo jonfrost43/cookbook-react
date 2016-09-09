@@ -26,4 +26,4 @@ var Ingredients = React.createClass({
 	}
 });
 
-module.exports = Ingredients;
+export default Ingredients;

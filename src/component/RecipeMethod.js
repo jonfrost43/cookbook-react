@@ -1,6 +1,6 @@
 import React from 'react';
 
-module.exports = React.createClass({
+export default React.createClass({
 	render: function(){
 		return (
 			<fieldset className="method">
