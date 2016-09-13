@@ -18,6 +18,7 @@ module.exports = {
 		]
 	},
 	devServer: {
-		contentBase: 'www/'
+		contentBase: 'www/',
+		historyApiFallback: true
 	}
 };
