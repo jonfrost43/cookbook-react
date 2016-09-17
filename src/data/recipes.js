@@ -6,7 +6,7 @@ export default [
 			{quantity: 100, unit: 'g', text: 'fish'},
 			{quantity: 20, unit: 'g', text: 'tacos'}
 		],
-		image: 'https://unsplash.it/500/250?image=999'
+		image: '/img/1.jpg'
 	},
 	{
 		id: 2,
@@ -15,7 +15,7 @@ export default [
 			{quantity: 2, text: 'slices of toast'},
 			{quantity: 30, unit: 'g', text: 'cheese'}
 		],
-		image: 'https://unsplash.it/500/250?image=292'
+		image: '/img/2.jpg'
 	},
 	{
 		id: 3,
@@ -24,6 +24,6 @@ export default [
 			{quantity: 100, unit: 'g', text: 'red lentils'},
 			{quantity: 1, unit: 'tsp', text: 'cumin seeds'}
 		],
-		image: 'https://unsplash.it/500/250?image=488'
+		image: '/img/3.jpg'
 	}
 ];
