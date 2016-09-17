@@ -1,52 +1,36 @@
 import React from 'react';
-import Navigation from './Navigation';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import NavigationBack from 'material-ui/svg-icons/navigation/arrow-back';
 import Ingredients from './Ingredients';
 import RecipeMethod from './RecipeMethod';
+import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
+import { browserHistory } from 'react-router';
 
 export default React.createClass({
-	render: function(){
-		return (
-			<div>
-				<Navigation />
-				<h2>Create recipe</h2>
-				<form onSubmit={this.handleSubmit}>
-					<fieldset className="name description">
-						<div>
-							<label for="name" className="accessible">Recipe name</label>
-							<input type="text" id="name" name="name" placeholder="Name your recipe" autocomplete="off" required />
-						</div>
-					</fieldset>
-					<Ingredients />
-					<RecipeMethod />
-					<fieldset className="description">
-		                <div>
-		                    <label for="category" className="accessible">Category</label>
-		                    <select id="category" name="category" required>
-		                        <option value="">Select a category</option>
-		                        <option>Canapes & cocktails</option>
-		                        <option>Starters, soups & salads</option>
-		                        <option>Sides & sauces</option>
-		                        <option>Vegetarian</option>
-		                        <option>Meat & game</option>
-		                        <option>Fish & seafood</option>
-		                        <option>Poultry</option>
-		                        <option>Baking</option>
-		                        <option>Desserts</option>
-		                    </select>
-		                </div>
-		                <div>
-		                    <input type="text" placeholder="Add tags..." />
-		                </div>
-		            </fieldset>
-		            <input type="submit" />
-				</form>
-			</div>
-		);
+	getInitialState: function () {
+		return {
+			category: null
+		}
 	},
-	handleSubmit: function(e){
+
+	onClickBack: function () {
+		browserHistory.goBack();
+	},
+
+	onCategoryChange: function(evt, index, value){
+		this.setState({
+			category: value
+		});
+	},
+
+	onSubmit: function(e){
 		e.preventDefault();
 
-	    var elements = Array.prototype.slice.call(e.currentTarget.elements);
+	    var elements = Array.prototype.slice.call(document.forms.createRecipe);
 
 	    var formData = elements.reduce(function(prev, el){
 	        if(el.name) {
@@ -56,6 +40,42 @@ export default React.createClass({
 	        return prev;
 	    }, {});
 
-	    alert(JSON.stringify(formData));
+	    console.log(formData);
+	},
+
+	render: function(){
+		return (
+			<div>
+				<AppBar title={'Create recipe'} iconElementLeft={<IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>} />
+				<form name="createRecipe">
+					<fieldset className="name description">
+						<div>
+							<TextField name="name" floatingLabelText="Recipe name" hintText="Name your recipe" />
+						</div>
+					</fieldset>
+					<Ingredients />
+					<RecipeMethod />
+					<fieldset className="description">
+		                <div>
+							<SelectField name="category" value={this.state.category} onChange={this.onCategoryChange} floatingLabelText="Category">
+								<MenuItem value={0} primaryText="Canapes & cocktails" />
+								<MenuItem value={1} primaryText="Starters, soups & salads" />
+								<MenuItem value={2} primaryText="Sides & sauces" />
+								<MenuItem value={3} primaryText="Vegetarian" />
+								<MenuItem value={4} primaryText="Meat & game" />
+								<MenuItem value={5} primaryText="Fish & seafood" />
+								<MenuItem value={6} primaryText="Poultry" />
+								<MenuItem value={7} primaryText="Baking" />
+								<MenuItem value={8} primaryText="Desserts" />
+							</SelectField>
+		                </div>
+		                <div>
+							<TextField name="tags" floatingLabelText="Tags" hintText="Add tags..." />
+		                </div>
+		            </fieldset>
+					<RaisedButton label="Create recipe" secondary={true} onClick={this.onSubmit} />
+				</form>
+			</div>
+		);
 	}
 });

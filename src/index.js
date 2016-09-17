@@ -4,7 +4,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {darkBlack} from 'material-ui/styles/colors';
-import AppBar from 'material-ui/AppBar';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import Home from './component/Home';
 import AddRecipe from './component/AddRecipe';
@@ -19,16 +18,23 @@ const muiTheme = getMuiTheme({
 	fontFamily: 'Raleway, sans-serif'
 });
 
+var App = React.createClass({
+	render: function () {
+		return (
+			<div>
+				<Router history={browserHistory}>
+					<Route path="/" activeClassName="active" component={Home} />
+					<Route path="/create" activeClassName="active" component={AddRecipe} appBarTitle={'Create recipe'} />
+					<Route path="/recipe/:recipeId/:recipeName" activeClassName="active" component={Recipe} />
+				</Router>
+			</div>
+		);
+	}
+});
+
 ReactDOM.render(
 	<MuiThemeProvider muiTheme={muiTheme}>
-		<div>
-			<AppBar title="Cookbook" />
-			<Router history={browserHistory}>
-				<Route path="/" activeClassName="active" component={Home} />
-				<Route path="/create" activeClassName="active" component={AddRecipe} />
-				<Route path="/recipe/:recipeId/:recipeName" activeClassName="active" component={Recipe} />
-			</Router>
-		</div>
+		<App></App>
 	</MuiThemeProvider>,
 	document.getElementById('app')
 );

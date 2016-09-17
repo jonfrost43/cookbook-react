@@ -1,8 +1,15 @@
 import React from 'react';
-import Navigation from './Navigation';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import NavigationBack from 'material-ui/svg-icons/navigation/arrow-back';
 import recipes from '../data/recipes';
+import { browserHistory } from 'react-router';
 
 export default React.createClass({
+	onClickBack: function () {
+		browserHistory.goBack();
+	},
+
 	render: function(){
 		var recipe = recipes.filter(function(recipe){
 			return recipe.id === parseInt(this.props.params.recipeId, 10);
@@ -10,8 +17,7 @@ export default React.createClass({
 
 		return (
 			<div className="recipe">
-				<Navigation />
-				<h2>{recipe.name}</h2>
+				<AppBar title={recipe.name} iconElementLeft={<IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>} />
 				<img src={recipe.image} />
 				<h3>Ingredients</h3>
 				<ul>
