@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {darkBlack} from 'material-ui/styles/colors';
+import { deepOrangeA200, darkBlack } from 'material-ui/styles/colors';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import Home from './component/Home';
 import AddRecipe from './component/AddRecipe';
@@ -13,6 +13,7 @@ injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
 	palette: {
+		accent1Color: deepOrangeA200,
 		textColor: darkBlack
 	},
 	fontFamily: 'Raleway, sans-serif'
