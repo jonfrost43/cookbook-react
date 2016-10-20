@@ -21,8 +21,8 @@ var Ingredient = React.createClass({
 		var index = this.props.index;
 		return (
 			<li>
-				<TextField type="number" name={'iQuantity'+index} />
-				<SelectField name={'iUnit'+index} value={this.state.unit} onChange={this.onUnitChange} floatingLabelText="Unit">
+				<TextField type="number" name={'iQuantity'+index} style={{width:60}} hintText={100} />
+				<SelectField name={'iUnit'+index} value={this.state.unit} onChange={this.onUnitChange} hintText={'unit'} style={{width:80}}>
 					<MenuItem value={0} primaryText="g" />
 					<MenuItem value={1} primaryText="kg" />
 					<MenuItem value={2} primaryText="oz" />
@@ -30,8 +30,9 @@ var Ingredient = React.createClass({
 					<MenuItem value={4} primaryText="fl oz" />
 					<MenuItem value={5} primaryText="tbsp" />
 					<MenuItem value={6} primaryText="tsp" />
+					<MenuItem value={7} primaryText="n/a" />
 				</SelectField>
-				<TextField name={'iText'+index} />
+				<TextField name={'iText'+index} hintText={'flour'} />
 			</li>
 		);
 	}
