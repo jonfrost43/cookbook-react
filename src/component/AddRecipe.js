@@ -50,7 +50,7 @@ export default React.createClass({
 				<form name="createRecipe">
 					<fieldset className="name description">
 						<div>
-							<TextField name="name" floatingLabelText="Recipe name" hintText="Name your recipe" />
+							<TextField name="name" floatingLabelText="Recipe name" fullWidth={true} autoFocus style={{fontSize:'20px', height:'78px'}} />
 						</div>
 					</fieldset>
 					<Ingredients />
