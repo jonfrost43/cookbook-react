@@ -1,7 +1,28 @@
+body {
+    background: #f9f3ed;
+}
+
+h1, h2, h3, p, ul, ol {
+    margin-bottom: 1em;
+}
+
+.content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
 .cardContainer {
     padding: 8px;
 }
 
 form {
     padding: 8px;
+}
+
+.heroImage {
+    max-width: 100%;
+}
+
+.recipe .text {
+    padding: 10px;
 }
