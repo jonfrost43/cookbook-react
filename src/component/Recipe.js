@@ -3,18 +3,22 @@ import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import NavigationBack from 'material-ui/svg-icons/navigation/arrow-back';
-import recipes from '../data/recipes';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
 
-export default React.createClass({
+const mapStateToProps = state => {
+	return {
+		recipes: state.recipes
+	};
+};
+
+export default connect(mapStateToProps)(React.createClass({
 	onClickBack: function () {
 		browserHistory.goBack();
 	},
 
 	render: function(){
-		var recipe = recipes.filter(function(recipe){
-			return recipe.id === parseInt(this.props.params.recipeId, 10);
-		}, this)[0];
+		var recipe = this.props.recipes.filter(recipe => recipe.id === parseInt(this.props.params.recipeId, 10))[0];
 
 		return (
 			<div className="recipe">
@@ -33,4 +37,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}));

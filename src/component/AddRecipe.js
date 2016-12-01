@@ -10,10 +10,21 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import { addRecipe } from '../model/actions';
 
-export default React.createClass({
+const mapDispatchToProps = dispatch => {
+	return {
+		onAdd: recipe => {
+			dispatch(addRecipe(recipe));
+		}
+	};
+};
+
+export default connect(null, mapDispatchToProps)(React.createClass({
 	getInitialState: function () {
 		return {
+			recipeName: '',
 			category: null
 		}
 	},
@@ -22,7 +33,13 @@ export default React.createClass({
 		browserHistory.goBack();
 	},
 
-	onCategoryChange: function(evt, index, value){
+	handleChange: function(e){
+		var newState = {};
+		newState[e.target.name] = e.target.value;
+		this.setState(newState);
+	},
+
+	onCategoryChange: function(e, index, value){
 		this.setState({
 			category: value
 		});
@@ -42,6 +59,8 @@ export default React.createClass({
 	    }, {});
 
 	    console.log(formData);
+	    console.log(this.state);
+		this.props.onAdd(this.state);
 	},
 
 	render: function(){
@@ -52,7 +71,8 @@ export default React.createClass({
 					<form name="createRecipe">
 						<fieldset className="name description">
 							<div>
-								<TextField name="name" floatingLabelText="Recipe name" fullWidth={true} autoFocus style={{fontSize:'20px', height:'78px'}} />
+								<TextField name="name" floatingLabelText="Recipe name" fullWidth={true} autoFocus style={{fontSize:'20px', height:'78px'}}
+								 	onChange={this.handleChange}/>
 							</div>
 						</fieldset>
 						<Ingredients />
@@ -81,4 +101,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}));

@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { cookbookApp } from './model/reducers';
+import { logger } from './model/middleware';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -9,7 +13,16 @@ import Home from './component/Home';
 import AddRecipe from './component/AddRecipe';
 import Recipe from './component/Recipe';
 
+import { addRecipe } from './model/actions';
+import recipes from './data/recipes';
+
 injectTapEventPlugin();
+
+let store = createStore(cookbookApp, applyMiddleware(logger));
+
+recipes.forEach(recipe => {
+	store.dispatch(addRecipe(recipe));
+});
 
 const muiTheme = getMuiTheme({
 	palette: {
@@ -34,8 +47,10 @@ var App = React.createClass({
 });
 
 ReactDOM.render(
-	<MuiThemeProvider muiTheme={muiTheme}>
-		<App></App>
-	</MuiThemeProvider>,
+	<Provider store={store}>
+		<MuiThemeProvider muiTheme={muiTheme}>
+			<App></App>
+		</MuiThemeProvider>
+	</Provider>,
 	document.getElementById('app')
 );

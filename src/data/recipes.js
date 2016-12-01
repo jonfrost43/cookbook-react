@@ -1,6 +1,5 @@
 export default [
 	{
-		id: 1,
 		name: 'Fish tacos',
 		ingredients: [
 			{quantity: 100, unit: 'g', text: 'fish'},
@@ -9,7 +8,6 @@ export default [
 		image: '/img/1.jpg'
 	},
 	{
-		id: 2,
 		name: 'Cheese on toast',
 		ingredients: [
 			{quantity: 2, text: 'slices of toast'},
@@ -18,7 +16,6 @@ export default [
 		image: '/img/2.jpg'
 	},
 	{
-		id: 3,
 		name: 'Lentil dhal',
 		ingredients: [
 			{quantity: 100, unit: 'g', text: 'red lentils'},
