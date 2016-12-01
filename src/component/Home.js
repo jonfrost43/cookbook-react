@@ -18,12 +18,11 @@ export default connect(mapStateToProps)(React.createClass({
 		browserHistory.push('/create');
 	},
 	render: function(){
-		console.log(this);
 		return (
 			<div>
 				<AppBar title={'Cookbook'} />
 				<div className="content">
-					<RecipeList data={this.props.recipes} />
+					<RecipeList recipes={this.props.recipes} />
 				</div>
 				<FloatingActionButton secondary={true} onClick={this.onClickFab} style={{position: 'fixed', bottom: 12, right: 12}}>
 					<ContentAdd />

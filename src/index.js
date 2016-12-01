@@ -16,13 +16,21 @@ import Recipe from './component/Recipe';
 import { addRecipe } from './model/actions';
 import recipes from './data/recipes';
 
+import debounce from 'lodash-es/debounce'
+
 injectTapEventPlugin();
 
-let store = createStore(cookbookApp, applyMiddleware(logger));
+const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {recipes:[]};
 
-recipes.forEach(recipe => {
-	store.dispatch(addRecipe(recipe));
-});
+let store = createStore(cookbookApp, persistedState, applyMiddleware(logger));
+
+store.subscribe(debounce(() => {
+	localStorage.setItem('reduxState', JSON.stringify(store.getState()));
+}), 500);
+
+// recipes.forEach(recipe => {
+// 	store.dispatch(addRecipe(recipe));
+// });
 
 const muiTheme = getMuiTheme({
 	palette: {
