@@ -10,11 +10,12 @@ var RecipeListItem = React.createClass({
 		browserHistory.push(path);
 	},
 	render: function () {
-		var recipe = this.props.recipe;
+		let recipe = this.props.recipe,
+			image = recipe.image ? <img src={recipe.image} /> : <span />;
 		return (
 			<li key={recipe.id} className="cardContainer">
 				<Card containerStyle={{paddingBottom:0}} onClick={this.onClickRecipe}>
-					<CardMedia><img src={recipe.image} /></CardMedia>
+					<CardMedia>{image}</CardMedia>
 					<CardTitle title={recipe.name} />
 				</Card>
 			</li>
