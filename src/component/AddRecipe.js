@@ -58,9 +58,9 @@ export default connect(null, mapDispatchToProps)(React.createClass({
 	        return prev;
 	    }, {});
 
-	    console.log(formData);
-	    console.log(this.state);
 		this.props.onAdd(this.state);
+
+		browserHistory.push('/');
 	},
 
 	render: function(){
