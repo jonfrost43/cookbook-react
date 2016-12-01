@@ -25,10 +25,10 @@ var RecipeListItem = React.createClass({
 
 var RecipeList = React.createClass({
 	render: function(){
-		var self = this;
+		let recipes = Array.isArray(this.props.recipes) ? this.props.recipes : [];
 		return (
 			<ul className="recipeList">
-				{this.props.data.map(function(recipe){
+				{recipes.map(function(recipe){
 					return <RecipeListItem key={recipe.id} recipe={recipe} />;
 				})}
 			</ul>
