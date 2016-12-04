@@ -1,4 +1,4 @@
-import { ADD_RECIPE } from './actions.js'
+import { ADD_RECIPE, EDIT_RECIPE } from './actions.js'
 
 const initialState = {
 	recipes: []
@@ -18,6 +18,17 @@ export function cookbookApp(state = initialState, action){
 			return Object.assign({}, state, {
 				recipes: state.recipes.concat(action.recipe)
 			})
+
+		case EDIT_RECIPE:
+			return Object.assign({}, state, {
+				recipes: state.recipes.map(recipe => {
+					if(recipe.id === action.recipe.id){
+						return action.recipe
+					}
+					return recipe
+				})
+			})
+
 		default:
 			return state
 	}

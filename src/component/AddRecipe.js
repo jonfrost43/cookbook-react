@@ -11,21 +11,36 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { addRecipe } from '../model/actions';
+import { addRecipe, editRecipe } from '../model/actions';
+
+const mapStateToProps = state => {
+	return {
+		recipes: state.recipes
+	};
+};
 
 const mapDispatchToProps = dispatch => {
 	return {
 		onAdd: recipe => {
 			dispatch(addRecipe(recipe));
+		},
+		onEdit: recipe => {
+			dispatch(editRecipe(recipe));
 		}
 	};
 };
 
-export default connect(null, mapDispatchToProps)(React.createClass({
+export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 	getInitialState: function () {
+		var recipe = this.props.recipes.filter(recipe => recipe.id === parseInt(this.props.params.recipeId, 10))[0];
+
 		return {
-			recipeName: '',
-			category: null
+			isEditing: !!recipe,
+			appBarTitle: recipe ? 'Edit recipe' : 'Create recipe',
+			recipe: Object.assign({
+				name: '',
+				category: null
+			}, recipe)
 		}
 	},
 
@@ -36,12 +51,16 @@ export default connect(null, mapDispatchToProps)(React.createClass({
 	handleChange: function(e){
 		var newState = {};
 		newState[e.target.name] = e.target.value;
-		this.setState(newState);
+		this.setState({
+			recipe: Object.assign(this.state.recipe, newState)
+		});
 	},
 
 	onCategoryChange: function(e, index, value){
 		this.setState({
-			category: value
+			recipe: Object.assign(this.state.recipe, {
+				category: value
+			})
 		});
 	},
 
@@ -58,7 +77,14 @@ export default connect(null, mapDispatchToProps)(React.createClass({
 	        return prev;
 	    }, {});
 
-		this.props.onAdd(this.state);
+		if(this.state.recipe.name){
+			if(this.state.isEditing){
+				this.props.onEdit(this.state.recipe)
+			}
+			else {
+				this.props.onAdd(this.state.recipe);
+			}
+		}
 
 		browserHistory.push('/');
 	},
@@ -66,20 +92,20 @@ export default connect(null, mapDispatchToProps)(React.createClass({
 	render: function(){
 		return (
 			<div>
-				<AppBar title={'Create recipe'} iconElementLeft={<IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>} />
+				<AppBar title={this.state.appBarTitle} iconElementLeft={<IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>} />
 				<Paper rounded={false} style={{maxWidth:600, margin:'0 auto'}}>
 					<form name="createRecipe">
 						<fieldset className="name description">
 							<div>
 								<TextField name="name" floatingLabelText="Recipe name" fullWidth={true} autoFocus style={{fontSize:'20px', height:'78px'}}
-								 	onChange={this.handleChange}/>
+								 	onChange={this.handleChange} value={this.state.recipe.name}/>
 							</div>
 						</fieldset>
 						<Ingredients />
 						<RecipeMethod />
 						<fieldset className="description">
 			                <div>
-								<SelectField name="category" value={this.state.category} onChange={this.onCategoryChange} floatingLabelText="Category">
+								<SelectField name="category" value={this.state.recipe.category} onChange={this.onCategoryChange} floatingLabelText="Category">
 									<MenuItem value={0} primaryText="Canapes & cocktails" />
 									<MenuItem value={1} primaryText="Starters, soups & salads" />
 									<MenuItem value={2} primaryText="Sides & sauces" />

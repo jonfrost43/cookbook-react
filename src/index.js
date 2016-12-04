@@ -47,6 +47,7 @@ var App = React.createClass({
 				<Router history={browserHistory}>
 					<Route path="/" activeClassName="active" component={Home} />
 					<Route path="/create" activeClassName="active" component={AddRecipe} appBarTitle={'Create recipe'} />
+					<Route path="/edit/:recipeId/:recipeName" activeClassName="active" component={AddRecipe} />
 					<Route path="/recipe/:recipeId/:recipeName" activeClassName="active" component={Recipe} />
 				</Router>
 			</div>
