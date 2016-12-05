@@ -142,7 +142,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 								<TextField name="tags" floatingLabelText="Tags" hintText="Add tags..." />
 			                </div>
 			            </fieldset>
-						<RaisedButton label="Create recipe" secondary={true} onClick={this.onSubmit} />
+						<RaisedButton label="Done" secondary={true} onClick={this.onSubmit} />
 					</form>
 				</Paper>
 			</div>
