@@ -3,6 +3,7 @@ import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import NavigationBack from 'material-ui/svg-icons/navigation/arrow-back';
+import DoneIcon from 'material-ui/svg-icons/action/done';
 import Ingredients from './Ingredients';
 import RecipeMethod from './RecipeMethod';
 import TextField from 'material-ui/TextField';
@@ -104,7 +105,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 	render: function(){
 		return (
 			<div>
-				<AppBar title={this.state.appBarTitle} iconElementLeft={<IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>} />
+				<AppBar
+					title={this.state.appBarTitle}
+					iconElementLeft={<IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>}
+					iconElementRight={<IconButton onClick={this.onSubmit}><DoneIcon /></IconButton>}
+				/>
 				<Paper rounded={false} style={{maxWidth:600, margin:'0 auto'}}>
 					<form name="createRecipe">
 						<fieldset className="name description">
