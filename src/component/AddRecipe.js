@@ -39,7 +39,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 			appBarTitle: recipe ? 'Edit recipe' : 'Create recipe',
 			recipe: Object.assign({
 				name: '',
-				category: null
+				category: null,
+				ingredients: []
 			}, recipe)
 		}
 	},
@@ -64,18 +65,29 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 		});
 	},
 
+	addIngredient: function(){
+		this.setState({
+			recipe: Object.assign({}, this.state.recipe, {
+				ingredients: this.state.recipe.ingredients.concat({quantity: '', unit: 'g', text: ''})
+			})
+		});
+	},
+
+	onIngredientChange: function(ingredientIndex, changes){
+		this.setState({
+			recipe: Object.assign({}, this.state.recipe, {
+				ingredients: this.state.recipe.ingredients.map((ingredient, index) => {
+					if(index === ingredientIndex){
+						return Object.assign(ingredient, changes)
+					}
+					return ingredient;
+				})
+			})
+		});
+	},
+
 	onSubmit: function(e){
 		e.preventDefault();
-
-	    var elements = Array.prototype.slice.call(document.forms.createRecipe);
-
-	    var formData = elements.reduce(function(prev, el){
-	        if(el.name) {
-	            prev[el.name] = el.value;
-	        }
-
-	        return prev;
-	    }, {});
 
 		if(this.state.recipe.name){
 			if(this.state.isEditing){
@@ -84,9 +96,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 			else {
 				this.props.onAdd(this.state.recipe);
 			}
-		}
 
-		browserHistory.push('/');
+			browserHistory.push('/');
+		}
 	},
 
 	render: function(){
@@ -101,7 +113,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 								 	onChange={this.handleChange} value={this.state.recipe.name}/>
 							</div>
 						</fieldset>
-						<Ingredients />
+						<Ingredients
+							ingredients={this.state.recipe.ingredients}
+							add={this.addIngredient}
+							onChange={this.onIngredientChange}
+						/>
 						<RecipeMethod />
 						<fieldset className="description">
 			                <div>
