@@ -13,7 +13,7 @@ import Home from './component/Home';
 import AddRecipe from './component/AddRecipe';
 import Recipe from './component/Recipe';
 
-import { addRecipe } from './model/actions';
+import { setDrawer, addRecipe } from './model/actions';
 import recipes from './data/recipes';
 
 import debounce from 'lodash-es/debounce'
@@ -27,6 +27,8 @@ let store = createStore(cookbookApp, persistedState, applyMiddleware(logger));
 store.subscribe(debounce(() => {
 	localStorage.setItem('reduxState', JSON.stringify(store.getState()));
 }), 500);
+
+store.dispatch(setDrawer(false));
 
 // recipes.forEach(recipe => {
 // 	store.dispatch(addRecipe(recipe));
