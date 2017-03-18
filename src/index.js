@@ -10,7 +10,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { deepOrangeA200, darkBlack } from 'material-ui/styles/colors';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import Home from './component/Home';
-import AddRecipe from './component/AddRecipe';
+import RecipeForm from './component/RecipeForm';
 import Recipe from './component/Recipe';
 
 import { setDrawer, addRecipe } from './model/actions';
@@ -48,8 +48,8 @@ var App = React.createClass({
 			<div>
 				<Router history={browserHistory}>
 					<Route path="/" activeClassName="active" component={Home} />
-					<Route path="/create" activeClassName="active" component={AddRecipe} appBarTitle={'Create recipe'} />
-					<Route path="/edit/:recipeId/:recipeName" activeClassName="active" component={AddRecipe} />
+					<Route path="/create" activeClassName="active" component={RecipeForm} appBarTitle={'Create recipe'} />
+					<Route path="/edit/:recipeId/:recipeName" activeClassName="active" component={RecipeForm} />
 					<Route path="/recipe/:recipeId/:recipeName" activeClassName="active" component={Recipe} />
 				</Router>
 			</div>
