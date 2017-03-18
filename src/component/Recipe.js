@@ -40,6 +40,9 @@ export default connect(mapStateToProps)(React.createClass({
 						<h3>Ingredients</h3>
 						<ul>
 						{recipe.ingredients.map(function(ingredient){
+							if(ingredient.unit === 'n/a'){
+								ingredient.unit = '';
+							}
 							return <li key={ingredient.text}>{ingredient.quantity}{ingredient.unit} {ingredient.text}</li>
 						})}
 						</ul>
