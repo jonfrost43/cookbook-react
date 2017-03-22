@@ -1,0 +1,11 @@
+.ingredients li {
+	display: flex;
+}
+
+.ingredients li > * {
+	margin-right: 20px;
+}
+
+.ingredients li :last-child {
+	margin-right: 0;
+}

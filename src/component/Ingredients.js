@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
+import './ingredients.css';
 
 var Ingredient = React.createClass({
 	onQuantityChange: function(e, value){
@@ -21,8 +22,8 @@ var Ingredient = React.createClass({
 		var index = this.props.index;
 		return (
 			<li>
-				<TextField type="number" name={'iQuantity'+index} value={this.props.quantity} onChange={this.onQuantityChange} style={{width:60}} hintText={100} />
-				<SelectField name={'iUnit'+index} value={this.props.unit} onChange={this.onUnitChange} hintText={'unit'} style={{width:80}}>
+				<TextField type="number" name={'iQuantity'+index} value={this.props.quantity} onChange={this.onQuantityChange} style={{width:100}} hintText={100} />
+				<SelectField name={'iUnit'+index} value={this.props.unit} onChange={this.onUnitChange} hintText={'unit'} floatingLabelFixed={false} style={{width:140}}>
 					<MenuItem value={'g'} primaryText="g" />
 					<MenuItem value={'ml'} primaryText="kg" />
 					<MenuItem value={'oz'} primaryText="oz" />
@@ -32,7 +33,7 @@ var Ingredient = React.createClass({
 					<MenuItem value={'tsp'} primaryText="tsp" />
 					<MenuItem value={'n/a'} primaryText="n/a" />
 				</SelectField>
-				<TextField name={'iText'+index} value={this.props.text} onChange={this.onTextChange} hintText={'flour'} />
+				<TextField name={'iText'+index} value={this.props.text} onChange={this.onTextChange} hintText={'flour'} style={{width:'100%'}} />
 			</li>
 		);
 	}
