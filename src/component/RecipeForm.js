@@ -69,7 +69,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 	addIngredient: function(){
 		this.setState({
 			recipe: Object.assign({}, this.state.recipe, {
-				ingredients: this.state.recipe.ingredients.concat({quantity: '', unit: 'g', text: ''})
+				ingredients: this.state.recipe.ingredients.concat({quantity: '', unit: '', text: ''})
 			})
 		});
 	},
