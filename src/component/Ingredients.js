@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import './ingredients.css';
 
 var Ingredient = React.createClass({
@@ -48,7 +48,7 @@ var Ingredients = function(props){
 				return <Ingredient key={index} index={index} quantity={ingredient.quantity} unit={ingredient.unit} text={ingredient.text} onChange={props.onChange}></Ingredient>
 			})}
 			</ol>
-			<FlatButton label="Add ingredient" primary={true} onClick={props.add} />
+			<RaisedButton label="Add ingredient" primary={true} onClick={props.add} style={{float:'right'}} />
 		</fieldset>
 	);
 };

@@ -1,13 +1,13 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 
 var RecipeMethodStep = React.createClass({
 	render: function () {
 		var index = this.props.index;
 		return (
 			<li>
-				<TextField name={'methodStep'+index} multiLine={true} rows={2} />
+				<TextField name={'methodStep'+index} multiLine={true} rows={2} style={{width:'100%'}} />
 			</li>
 		);
 	}
@@ -35,7 +35,7 @@ var RecipeMethod = React.createClass({
 					return <RecipeMethodStep key={index} index={index}></RecipeMethodStep>;
 				})}
 				</ol>
-				<FlatButton label="Add step" primary={true} onClick={this.add} />
+				<RaisedButton label="Add step" primary={true} onClick={this.add} style={{float:'right'}} />
             </fieldset>
 		);
 	}

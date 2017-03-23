@@ -1,4 +1,4 @@
-.ingredients li {
+.ingredients li, .method li {
 	display: flex;
 }
 
