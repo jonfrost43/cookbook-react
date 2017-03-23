@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
@@ -13,18 +13,18 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps)(React.createClass({
-	onClickBack: function () {
+class Recipe extends Component {
+	onClickBack(){
 		browserHistory.goBack();
-	},
+	}
 
-	onClickEdit: function () {
+	onClickEdit = () => {
 		var recipe = this.props.recipes.filter(recipe => recipe.id === parseInt(this.props.params.recipeId, 10))[0];
 		var path = '/edit/'+recipe.id+'/'+recipe.name.replace(/\s/g, '-').toLowerCase();
 		browserHistory.push(path);
-	},
+	}
 
-	render: function(){
+	render(){
 		var recipe = this.props.recipes.filter(recipe => recipe.id === parseInt(this.props.params.recipeId, 10))[0];
 
 		return (
@@ -51,4 +51,7 @@ export default connect(mapStateToProps)(React.createClass({
 			</div>
 		);
 	}
-}));
+
+}
+
+export default connect(mapStateToProps)(Recipe);

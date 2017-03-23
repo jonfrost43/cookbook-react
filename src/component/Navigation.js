@@ -1,13 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-export default React.createClass({
-	render: function(){
-		return (
-			<ul>
-				<li><Link to="/">Home</Link></li>
-				<li><Link to="/create">Create new recipe</Link></li>
-			</ul>
-		);
-	}
-});
+export default function(){
+	return (
+		<ul>
+			<li><Link to="/">Home</Link></li>
+			<li><Link to="/create">Create new recipe</Link></li>
+		</ul>
+	);
+}

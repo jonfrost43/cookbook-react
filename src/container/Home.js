@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import RecipeList from '../component/RecipeList';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -27,14 +27,16 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
-	onClickFab: function () {
+class Home extends Component {
+	onClickFab(){
 		browserHistory.push('/create');
-	},
-	toggleDrawer: function(){
+	}
+
+	toggleDrawer = () => {
 		this.props.onSetDrawer(!this.props.app.isDrawerOpen);
-	},
-	render: function(){
+	}
+
+	render(){
 		return (
 			<div>
 				<AppBar title="Cookbook" onLeftIconButtonTouchTap={this.toggleDrawer} />
@@ -57,4 +59,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 			</div>
 		);
 	}
-}));
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

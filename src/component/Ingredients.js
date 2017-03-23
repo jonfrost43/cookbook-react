@@ -1,25 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import './ingredients.css';
 
-var Ingredient = React.createClass({
-	onQuantityChange: function(e, value){
+class Ingredient extends Component {
+	onQuantityChange = (e, value) => {
 		this.props.onChange(this.props.index, {quantity: value});
-	},
+	}
 
-	onUnitChange: function(e, index, value){
+	onUnitChange = (e, index, value) => {
 		this.props.onChange(this.props.index, {unit: value});
-	},
+	}
 
-	onTextChange: function(e, value){
+	onTextChange = (e, value) => {
 		this.props.onChange(this.props.index, {text: value});
-	},
+	}
 
-	render: function(){
-		var index = this.props.index;
+	render(){
+		let index = this.props.index;
 		return (
 			<li>
 				<TextField type="number" name={'iQuantity'+index} value={this.props.quantity} onChange={this.onQuantityChange} style={{width:100}} hintText={100} />
@@ -37,9 +37,9 @@ var Ingredient = React.createClass({
 			</li>
 		);
 	}
-});
+}
 
-var Ingredients = function(props){
+var Ingredients = props => {
 	return (
 		<fieldset className="ingredients">
 			<legend>Ingredients</legend>

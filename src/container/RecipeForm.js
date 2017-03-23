@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
@@ -31,11 +31,13 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
-	getInitialState: function () {
-		var recipe = this.props.recipes.filter(recipe => recipe.id === parseInt(this.props.params.recipeId, 10))[0];
+class RecipeForm extends Component {
+	constructor(props){
+		super()
 
-		return {
+		let recipe = props.recipes.filter(recipe => recipe.id === parseInt(props.params.recipeId, 10))[0];
+
+		this.state = {
 			isEditing: !!recipe,
 			appBarTitle: recipe ? 'Edit recipe' : 'Create recipe',
 			recipe: Object.assign({
@@ -44,37 +46,37 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 				ingredients: []
 			}, recipe)
 		}
-	},
+	}
 
-	onClickBack: function () {
+	onClickBack(){
 		browserHistory.goBack();
-	},
+	}
 
-	handleChange: function(e){
+	handleChange = e => {
 		var newState = {};
 		newState[e.target.name] = e.target.value;
 		this.setState({
 			recipe: Object.assign(this.state.recipe, newState)
 		});
-	},
+	}
 
-	onCategoryChange: function(e, index, value){
+	onCategoryChange = (e, index, value) => {
 		this.setState({
 			recipe: Object.assign(this.state.recipe, {
 				category: value
 			})
 		});
-	},
+	}
 
-	addIngredient: function(){
+	addIngredient = () => {
 		this.setState({
 			recipe: Object.assign({}, this.state.recipe, {
 				ingredients: this.state.recipe.ingredients.concat({quantity: '', unit: '', text: ''})
 			})
 		});
-	},
+	}
 
-	onIngredientChange: function(ingredientIndex, changes){
+	onIngredientChange = (ingredientIndex, changes) => {
 		this.setState({
 			recipe: Object.assign({}, this.state.recipe, {
 				ingredients: this.state.recipe.ingredients.map((ingredient, index) => {
@@ -85,9 +87,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 				})
 			})
 		});
-	},
+	}
 
-	onSubmit: function(e){
+	onSubmit = e => {
 		e.preventDefault();
 
 		if(this.state.recipe.name){
@@ -100,9 +102,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 
 			browserHistory.push('/');
 		}
-	},
+	}
 
-	render: function(){
+	render(){
 		return (
 			<div>
 				<AppBar
@@ -148,4 +150,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 			</div>
 		);
 	}
-}));
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeForm);

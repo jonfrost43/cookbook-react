@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import { browserHistory } from 'react-router';
 
-var RecipeListItem = React.createClass({
-	onClickRecipe: function () {
-		var recipe = this.props.recipe;
-		var path = '/recipe/'+recipe.id+'/'+recipe.name.replace(/\s/g, '-').toLowerCase();
+class RecipeListItem extends Component {
+	onClickRecipe = () => {
+		let recipe = this.props.recipe;
+		let path = '/recipe/'+recipe.id+'/'+recipe.name.replace(/\s/g, '-').toLowerCase();
 		browserHistory.push(path);
-	},
-	render: function () {
+	}
+
+	render(){
 		let recipe = this.props.recipe,
 			image = recipe.image ? <img src={recipe.image} /> : <span />;
+
 		return (
 			<li key={recipe.id} className="cardContainer">
 				<Card containerStyle={{paddingBottom:0}} onClick={this.onClickRecipe}>
@@ -21,19 +23,18 @@ var RecipeListItem = React.createClass({
 			</li>
 		);
 	}
-});
+}
 
-var RecipeList = React.createClass({
-	render: function(){
-		let recipes = Array.isArray(this.props.recipes) ? this.props.recipes : [];
-		return (
-			<ul className="recipeList">
-				{recipes.map(function(recipe){
-					return <RecipeListItem key={recipe.id} recipe={recipe} />;
-				})}
-			</ul>
-		);
-	}
-});
+var RecipeList = props => {
+	let recipes = Array.isArray(props.recipes) ? props.recipes : [];
+	
+	return (
+		<ul className="recipeList">
+			{recipes.map(function(recipe){
+				return <RecipeListItem key={recipe.id} recipe={recipe} />;
+			})}
+		</ul>
+	);
+}
 
 export default RecipeList;
