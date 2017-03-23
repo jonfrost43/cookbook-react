@@ -1,8 +1,8 @@
 import React from 'react';
 import { Router, Route, browserHistory } from 'react-router';
-import Home from './component/Home';
-import RecipeForm from './component/RecipeForm';
-import Recipe from './component/Recipe';
+import Home from './container/Home';
+import RecipeForm from './container/RecipeForm';
+import Recipe from './container/Recipe';
 
 var App = () => {
 	return (

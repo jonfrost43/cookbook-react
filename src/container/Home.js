@@ -1,5 +1,5 @@
 import React from 'react';
-import RecipeList from './RecipeList';
+import RecipeList from '../component/RecipeList';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -44,7 +44,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(React.createClass({
 					onRequestChange={this.toggleDrawer}
 				>
 					<AppBar title="Cookbook" onLeftIconButtonTouchTap={this.toggleDrawer} />
-					<MenuItem onTouchTap={this.toggleDrawer}>Recipes</MenuItem>
+					<MenuItem onTouchTap={this.toggleDrawer}>View all recipes</MenuItem>
+					<MenuItem onTouchTap={this.toggleDrawer}>Create new recipe</MenuItem>
 					<MenuItem onTouchTap={this.toggleDrawer}>Meal planner</MenuItem>
 				</Drawer>
 				<div className="content">
