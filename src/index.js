@@ -8,10 +8,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { deepOrangeA200, darkBlack } from 'material-ui/styles/colors';
-import { Router, Route, Link, browserHistory } from 'react-router';
-import Home from './component/Home';
-import RecipeForm from './component/RecipeForm';
-import Recipe from './component/Recipe';
+
+import App from './App';
 
 import { setDrawer, addRecipe } from './model/actions';
 import recipes from './data/recipes';
@@ -40,21 +38,6 @@ const muiTheme = getMuiTheme({
 		textColor: darkBlack
 	},
 	fontFamily: 'Raleway, sans-serif'
-});
-
-var App = React.createClass({
-	render: function () {
-		return (
-			<div>
-				<Router history={browserHistory}>
-					<Route path="/" activeClassName="active" component={Home} />
-					<Route path="/create" activeClassName="active" component={RecipeForm} appBarTitle={'Create recipe'} />
-					<Route path="/edit/:recipeId/:recipeName" activeClassName="active" component={RecipeForm} />
-					<Route path="/recipe/:recipeId/:recipeName" activeClassName="active" component={Recipe} />
-				</Router>
-			</div>
-		);
-	}
 });
 
 ReactDOM.render(
