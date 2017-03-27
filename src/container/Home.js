@@ -39,17 +39,6 @@ class Home extends Component {
 	render(){
 		return (
 			<div>
-				<AppBar title="Cookbook" onLeftIconButtonTouchTap={this.toggleDrawer} />
-				<Drawer
-					docked={false}
-					open={this.props.app.isDrawerOpen}
-					onRequestChange={this.toggleDrawer}
-				>
-					<AppBar title="Cookbook" onLeftIconButtonTouchTap={this.toggleDrawer} />
-					<MenuItem onTouchTap={this.toggleDrawer}>View all recipes</MenuItem>
-					<MenuItem onTouchTap={this.toggleDrawer}>Create new recipe</MenuItem>
-					<MenuItem onTouchTap={this.toggleDrawer}>Meal planner</MenuItem>
-				</Drawer>
 				<div className="content">
 					<RecipeList recipes={this.props.recipes} />
 				</div>
