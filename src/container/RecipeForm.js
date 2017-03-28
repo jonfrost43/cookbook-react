@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import AppBar from 'material-ui/AppBar';
+import React, { Component, Children } from 'react';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import NavigationBack from 'material-ui/svg-icons/navigation/arrow-back';
@@ -107,11 +106,15 @@ class RecipeForm extends Component {
 	render(){
 		return (
 			<div>
-				<AppBar
-					title={this.state.appBarTitle}
-					iconElementLeft={<IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>}
-					iconElementRight={<IconButton onClick={this.onSubmit}><DoneIcon /></IconButton>}
-				/>
+				{Children.map(this.props.children, child => {
+					return React.cloneElement(child, Object.assign({}, child.props, {
+						title: this.state.appBarTitle,
+						onLeftIconButtonTouchTap: null,
+						iconElementLeft: <IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>,
+						iconElementRight: <IconButton onClick={this.onSubmit}><DoneIcon /></IconButton>
+					}));
+				})}
+
 				<Paper rounded={false} style={{maxWidth:600, margin:'0 auto'}}>
 					<form name="createRecipe">
 						<fieldset className="name description">

@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import AppBar from 'material-ui/AppBar';
+import React, { Component, Children } from 'react';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import NavigationBack from 'material-ui/svg-icons/navigation/arrow-back';
@@ -29,11 +28,15 @@ class Recipe extends Component {
 
 		return (
 			<div className="recipe">
-				<AppBar
-					title={recipe.name}
-					iconElementLeft={<IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>}
-					iconElementRight={<IconButton onClick={this.onClickEdit}><EditIcon /></IconButton>}
-				/>
+				{Children.map(this.props.children, child => {
+					return React.cloneElement(child, Object.assign({}, child.props, {
+						title: recipe.name,
+						onLeftIconButtonTouchTap: null,
+						iconElementLeft: <IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>,
+						iconElementRight: <IconButton onClick={this.onClickEdit}><EditIcon /></IconButton>
+					}));
+				})}
+
 				<Paper rounded={false} style={{maxWidth:600, margin:'0 auto'}}>
 					<img src={recipe.image} className="heroImage" />
 					<div className="text">

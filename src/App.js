@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Children } from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -29,10 +29,8 @@ class _Shell extends Component {
 	}
 
 	render(){
-		console.log(this);
 		return (
 			<div>
-				<AppBar title="Cookbook" onLeftIconButtonTouchTap={this.toggleDrawer} />
 				<Drawer
 					docked={false}
 					open={this.props.app.isDrawerOpen}
@@ -43,7 +41,9 @@ class _Shell extends Component {
 					<MenuItem onTouchTap={this.toggleDrawer}>Create new recipe</MenuItem>
 					<MenuItem onTouchTap={this.toggleDrawer}>Meal planner</MenuItem>
 				</Drawer>
-				{this.props.children}
+				{Children.map(this.props.children, child => {
+					return React.cloneElement(child, null, <AppBar title="Cookbook" onLeftIconButtonTouchTap={this.toggleDrawer} />)
+				})}
 			</div>
 		);
 	}
@@ -51,15 +51,11 @@ class _Shell extends Component {
 
 const Shell = connect(mapStateToProps, mapDispatchToProps)(_Shell);
 
-let handleChange = (p, n) => {
-	console.log(p, n);
-}
-
 class App extends Component {
 	render(){
 		return (
 			<Router history={browserHistory}>
-				<Route path="/" component={Shell} onChange={handleChange}>
+				<Route path="/" component={Shell}>
 					<IndexRoute activeClassName="active" component={Home} />
 					<Route name="create" path="/create" activeClassName="active" component={RecipeForm} appBarTitle={'Create recipe'} />
 					<Route path="/edit/:recipeId/:recipeName" activeClassName="active" component={RecipeForm} />

@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
 import RecipeList from '../component/RecipeList';
-import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { browserHistory } from 'react-router';
@@ -39,6 +33,7 @@ class Home extends Component {
 	render(){
 		return (
 			<div>
+				{this.props.children}
 				<div className="content">
 					<RecipeList recipes={this.props.recipes} />
 				</div>
