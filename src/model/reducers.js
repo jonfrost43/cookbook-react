@@ -24,9 +24,10 @@ export function cookbookApp(state = initialState, action){
 			}
 
 			action.recipe.id = nextRecipeId;
+			action.recipe.timestamp = Date.now();
 
 			return Object.assign({}, state, {
-				recipes: state.recipes.concat(action.recipe)
+				recipes: [action.recipe].concat(state.recipes)
 			})
 
 		case EDIT_RECIPE:
