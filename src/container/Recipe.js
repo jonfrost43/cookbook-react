@@ -1,16 +1,39 @@
 import React, { Component, Children } from 'react';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationBack from 'material-ui/svg-icons/navigation/arrow-back';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
+import { deleteRecipe } from '../model/actions';
 
 const mapStateToProps = state => {
 	return {
 		recipes: state.recipes
 	};
 };
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onDelete: recipeId => {
+			dispatch(deleteRecipe(recipeId));
+		}
+	};
+};
+
+const AppBarMenu = (props) => (
+	<IconMenu
+		iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+		targetOrigin={{horizontal: 'right', vertical: 'top'}}
+		anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+	>
+		<MenuItem primaryText="Edit" onClick={props.onClickEdit} />
+		<MenuItem primaryText="Delete" onClick={props.onClickDelete} />
+	</IconMenu>
+);
 
 class Recipe extends Component {
 	onClickBack(){
@@ -23,6 +46,12 @@ class Recipe extends Component {
 		browserHistory.push(path);
 	}
 
+	onClickDelete = () => {
+		var recipe = this.props.recipes.filter(recipe => recipe.id === parseInt(this.props.params.recipeId, 10))[0];
+		this.props.onDelete(recipe.id);
+		browserHistory.push('/');
+}
+
 	render(){
 		var recipe = this.props.recipes.filter(recipe => recipe.id === parseInt(this.props.params.recipeId, 10))[0];
 
@@ -33,7 +62,7 @@ class Recipe extends Component {
 						title: recipe.name,
 						onLeftIconButtonTouchTap: null,
 						iconElementLeft: <IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>,
-						iconElementRight: <IconButton onClick={this.onClickEdit}><EditIcon /></IconButton>
+						iconElementRight: <AppBarMenu onClickEdit={this.onClickEdit} onClickDelete={this.onClickDelete} />
 					}));
 				})}
 
@@ -57,4 +86,4 @@ class Recipe extends Component {
 
 }
 
-export default connect(mapStateToProps)(Recipe);
+export default connect(mapStateToProps, mapDispatchToProps)(Recipe);

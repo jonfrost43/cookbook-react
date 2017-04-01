@@ -3,6 +3,7 @@
 export const SET_DRAWER = 'SET_DRAWER'
 export const ADD_RECIPE = 'ADD_RECIPE'
 export const EDIT_RECIPE = 'EDIT_RECIPE'
+export const DELETE_RECIPE = 'DELETE_RECIPE'
 
 //action creators
 
@@ -28,5 +29,12 @@ export function editRecipe(recipe){
 		recipe: Object.assign({
 			ingredients: []
 		}, recipe)
+	}
+}
+
+export function deleteRecipe(recipeId){
+	return {
+		type: DELETE_RECIPE,
+		recipeId: recipeId
 	}
 }
