@@ -1,4 +1,10 @@
-import { SET_DRAWER, ADD_RECIPE, EDIT_RECIPE, DELETE_RECIPE } from './actions.js'
+import {
+	SET_DRAWER,
+	ADD_RECIPE,
+	EDIT_RECIPE,
+	DELETE_RECIPE,
+	CLEAR_RECIPES 
+} from './actions.js'
 
 const initialState = {
 	app: {
@@ -43,6 +49,11 @@ export function cookbookApp(state = initialState, action){
 		case DELETE_RECIPE:
 			return Object.assign({}, state, {
 				recipes: state.recipes.filter(recipe => recipe.id !== action.recipeId)
+			})
+
+		case CLEAR_RECIPES:
+			return Object.assign({}, state, {
+				recipes: []
 			})
 
 		default:

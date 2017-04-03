@@ -4,6 +4,7 @@ export const SET_DRAWER = 'SET_DRAWER'
 export const ADD_RECIPE = 'ADD_RECIPE'
 export const EDIT_RECIPE = 'EDIT_RECIPE'
 export const DELETE_RECIPE = 'DELETE_RECIPE'
+export const CLEAR_RECIPES = 'CLEAR_RECIPES'
 
 //action creators
 
@@ -36,5 +37,11 @@ export function deleteRecipe(recipeId){
 	return {
 		type: DELETE_RECIPE,
 		recipeId: recipeId
+	}
+}
+
+export function clearRecipes(){
+	return {
+		type: CLEAR_RECIPES
 	}
 }
