@@ -1,4 +1,5 @@
-var path = require('path');
+var path = require('path'),
+	webpack = require('webpack');
 
 module.exports = {
 	entry: './src/index.js',
@@ -22,9 +23,10 @@ module.exports = {
 			}
 		]
 	},
-	devtool: 'cheap-module-source-map',
-	devServer: {
-		contentBase: 'www/',
-		historyApiFallback: true
-	}
+	plugins: [
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify('production')
+		}),
+		new webpack.optimize.UglifyJsPlugin()
+	]
 };
