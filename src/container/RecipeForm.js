@@ -42,7 +42,8 @@ class RecipeForm extends Component {
 			recipe: Object.assign({
 				name: '',
 				category: null,
-				ingredients: []
+				ingredients: [],
+				method: []
 			}, recipe)
 		}
 	}
@@ -75,6 +76,14 @@ class RecipeForm extends Component {
 		});
 	}
 
+	addMethodStep = () => {
+		this.setState({
+			recipe: Object.assign({}, this.state.recipe, {
+				method: this.state.recipe.method.concat({text: ''})
+			})
+		});
+	}
+
 	onIngredientChange = (ingredientIndex, changes) => {
 		this.setState({
 			recipe: Object.assign({}, this.state.recipe, {
@@ -83,6 +92,19 @@ class RecipeForm extends Component {
 						return Object.assign(ingredient, changes)
 					}
 					return ingredient;
+				})
+			})
+		});
+	}
+
+	onMethodStepChange = (stepIndex, changes) => {
+		this.setState({
+			recipe: Object.assign({}, this.state.recipe, {
+				method: this.state.recipe.method.map((step, index) => {
+					if(index === stepIndex){
+						return Object.assign(step, changes)
+					}
+					return step;
 				})
 			})
 		});
@@ -128,7 +150,11 @@ class RecipeForm extends Component {
 							add={this.addIngredient}
 							onChange={this.onIngredientChange}
 						/>
-						<RecipeMethod />
+						<RecipeMethod
+							method={this.state.recipe.method}
+							add={this.addMethodStep}
+							onChange={this.onMethodStepChange}
+						/>
 						<fieldset className="description">
 			                <div>
 								<SelectField name="category" value={this.state.recipe.category} onChange={this.onCategoryChange} floatingLabelText="Category">

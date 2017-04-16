@@ -50,7 +50,7 @@ class Recipe extends Component {
 		var recipe = this.props.recipes.filter(recipe => recipe.id === parseInt(this.props.params.recipeId, 10))[0];
 		this.props.onDelete(recipe.id);
 		browserHistory.push('/');
-}
+	}
 
 	render(){
 		var recipe = this.props.recipes.filter(recipe => recipe.id === parseInt(this.props.params.recipeId, 10))[0];
@@ -78,6 +78,12 @@ class Recipe extends Component {
 							return <li key={ingredient.text}>{ingredient.quantity}{ingredient.unit} {ingredient.text}</li>
 						})}
 						</ul>
+					</div>
+					<div className="text">
+						<h3>Method</h3>
+						<ol>
+							{recipe.method.map((step, index) => <li key={index}>{step.text}</li>)}
+						</ol>
 					</div>
 				</Paper>
 			</div>
