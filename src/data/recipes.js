@@ -5,6 +5,7 @@ export default [
 			{quantity: 100, unit: 'g', text: 'fish'},
 			{quantity: 20, unit: 'g', text: 'tacos'}
 		],
+		method: [],
 		image: '/img/1.jpg',
 		category: 5,
 		timestamp: 1491236089458
@@ -14,6 +15,10 @@ export default [
 		ingredients: [
 			{quantity: 2, text: 'slices of toast'},
 			{quantity: 30, unit: 'g', text: 'cheese'}
+		],
+		method: [
+			{text: 'Toast the bread'},
+			{text: 'Melt the cheese'}
 		],
 		image: '/img/2.jpg',
 		category: 3,
@@ -32,6 +37,7 @@ export default [
 			{quantity: 1, text: 'tomato'},
 			{quantity: 1, unit: 'tsp', text: 'cumin seeds'}
 		],
+		method: [],
 		image: '/img/3.jpg',
 		category: 3,
 		timestamp: 1491236089463
