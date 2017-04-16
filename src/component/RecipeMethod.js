@@ -1,32 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-var RecipeMethodStep = React.createClass({
-	render: function () {
-		var index = this.props.index;
+class RecipeMethodStep extends Component {
+	render(){
+		let index = this.props.index;
 		return (
 			<li>
 				<TextField name={'methodStep'+index} multiLine={true} rows={2} style={{width:'100%'}} />
 			</li>
 		);
 	}
-});
+}
 
-var RecipeMethod = React.createClass({
-	getInitialState: function(){
-		return {
-			steps: [{text: ''}]
-		};
-	},
+class RecipeMethod extends Component {
+	state = {
+		steps: [{text: ''}]
+	}
 
-	add: function(){
+	add = () => {
 		this.setState({
 			steps: this.state.steps.concat({text: ''})
 		});
-	},
+	}
 
-	render: function(){
+	render(){
 		return (
 			<fieldset className="method">
                 <legend>Method</legend>
@@ -39,6 +37,6 @@ var RecipeMethod = React.createClass({
             </fieldset>
 		);
 	}
-});
+}
 
 export default RecipeMethod;
