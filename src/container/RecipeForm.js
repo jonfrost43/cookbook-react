@@ -12,6 +12,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { addRecipe, editRecipe } from '../model/actions';
+import categories from '../data/categories'
 
 const mapStateToProps = state => {
 	return {
@@ -158,15 +159,7 @@ class RecipeForm extends Component {
 						<fieldset className="description">
 			                <div>
 								<SelectField name="category" value={this.state.recipe.category} onChange={this.onCategoryChange} floatingLabelText="Category">
-									<MenuItem value={0} primaryText="Canapes & cocktails" />
-									<MenuItem value={1} primaryText="Starters, soups & salads" />
-									<MenuItem value={2} primaryText="Sides & sauces" />
-									<MenuItem value={3} primaryText="Vegetarian" />
-									<MenuItem value={4} primaryText="Meat & game" />
-									<MenuItem value={5} primaryText="Fish & seafood" />
-									<MenuItem value={6} primaryText="Poultry" />
-									<MenuItem value={7} primaryText="Baking" />
-									<MenuItem value={8} primaryText="Desserts" />
+									{categories.map(c => <MenuItem value={c.value} primaryText={c.label} />)}
 								</SelectField>
 			                </div>
 			                <div>
