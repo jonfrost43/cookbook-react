@@ -5,6 +5,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { setDrawer } from '../model/actions';
+import categories from '../data/categories';
 
 const mapStateToProps = state => {
 	return {
@@ -31,11 +32,13 @@ class Home extends Component {
 	}
 
 	render(){
+		let categoryId = this.props.params.category ? categories.filter(c => c.slug === this.props.params.category)[0].value : null;
+		let recipes = categoryId ? this.props.recipes.filter(r => r.category === categoryId) : this.props.recipes;
 		return (
 			<div>
 				{this.props.children}
 				<div className="content">
-					<RecipeList recipes={this.props.recipes} />
+					<RecipeList recipes={recipes} />
 				</div>
 				<FloatingActionButton secondary={true} onClick={this.onClickFab} style={{position: 'fixed', bottom: 12, right: 12}}>
 					<ContentAdd />

@@ -3,12 +3,14 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import {List, ListItem} from 'material-ui/List';
 import Home from './container/Home';
 import RecipeForm from './container/RecipeForm';
 import Recipe from './container/Recipe';
 import { connect } from 'react-redux';
 import { setDrawer, addRecipe, clearRecipes } from './model/actions';
 import recipes from './data/recipes';
+import categories from './data/categories';
 
 const mapStateToProps = state => {
 	return {
@@ -41,6 +43,11 @@ class _Shell extends Component {
 		this.props.clearRecipes();
 	}
 
+	handleClick = data => {
+		browserHistory.push('/find/'+data.category);
+		this.toggleDrawer();
+	}
+
 	toggleDrawer = () => {
 		this.props.onSetDrawer(!this.props.app.isDrawerOpen);
 	}
@@ -55,6 +62,11 @@ class _Shell extends Component {
 					>
 					<AppBar title="Cookbook" onLeftIconButtonTouchTap={this.toggleDrawer} />
 					<MenuItem onTouchTap={this.toggleDrawer}>View all recipes</MenuItem>
+					<List>
+						<ListItem primaryText="Find by category" primaryTogglesNestedList={true} nestedItems=
+							{categories.map(c => <ListItem key={c.value} onTouchTap={() => this.handleClick({category: c.slug})} primaryText={c.label} />)}
+						/>
+					</List>
 					<MenuItem onTouchTap={this.toggleDrawer}>Create new recipe</MenuItem>
 					<MenuItem onTouchTap={this.toggleDrawer}>Meal planner</MenuItem>
 					<MenuItem onTouchTap={this.addRecipes}>** Add recipes **</MenuItem>
@@ -76,7 +88,8 @@ class App extends Component {
 			<Router history={browserHistory}>
 				<Route path="/" component={Shell}>
 					<IndexRoute activeClassName="active" component={Home} />
-					<Route name="create" path="/create" activeClassName="active" component={RecipeForm} appBarTitle={'Create recipe'} />
+					<Route path="/find/:category" activeClassName="active" component={Home} />
+					<Route path="/create" activeClassName="active" component={RecipeForm} />
 					<Route path="/edit/:recipeId/:recipeName" activeClassName="active" component={RecipeForm} />
 					<Route path="/recipe/:recipeId/:recipeName" activeClassName="active" component={Recipe} />
 				</Route>
