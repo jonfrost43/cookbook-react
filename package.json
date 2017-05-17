@@ -5,13 +5,20 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --progress --profile --colors --config ./webpack.config.prod.js",
-    "dev": "webpack-dev-server --inline --progress --profile --colors"
+    "dev": "webpack --watch --progress",
+    "start": "node index"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.1",
+    "express": "^4.15.2",
     "lodash-es": "^4.17.2",
     "material-ui": "^0.17.0",
+    "passport": "^0.3.2",
+    "passport-google-oauth": "^1.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^4.4.6",

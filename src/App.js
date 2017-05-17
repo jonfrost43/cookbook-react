@@ -55,6 +55,7 @@ class _Shell extends Component {
 	render(){
 		return (
 			<div>
+				<a href="/auth/google">Sign In with Google</a>
 				<Drawer
 					docked={false}
 					open={this.props.app.isDrawerOpen}
