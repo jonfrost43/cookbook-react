@@ -3,20 +3,26 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const db = require('./app/db');
 const pkg = require('./package.json');
 const port = process.env.PORT || 3000;
 const app = express();
+const api = express();
 
 require('./app/passport')(passport);
 
-app.use(express.static('www'))
+db.connect(() => console.log('db connected'));
+
+app
 	.use(bodyParser.urlencoded({ extended: false }))
 	.use(cookieParser())
 	.use(cookieSession({secret:'c00kb00k'}))
 	.use(passport.initialize())
-	.use(passport.session());
+	.use(passport.session())
+	.use(express.static('www'))
+	.use('/api', api);
 
-app.get('/user', (req, res) => res.send(req.user));
+api.get('/user', (req, res) => req.user ? res.send(req.user) : res.status(404).send({error: 'No user found'}));
 
 app.get('/auth/google',
 	passport.authenticate('google', {
@@ -29,10 +35,13 @@ app.get('/auth/google',
 );
 
 app.get('/auth/google/callback',
-	passport.authenticate('google', {failureRedirect: '/login'}),
+	passport.authenticate('google', {failureRedirect: '/'}),
 	(req, res) => res.redirect('/')
 );
 
-app.listen(3000, () => {
-	console.log(pkg.name + ' app listening on port ' + port);
-})
+app.get('/auth/logout', (req, res) => {
+	req.logout();
+	res.redirect('/')
+});
+
+app.listen(port, () => console.log(pkg.name + ' app listening on port ' + port));

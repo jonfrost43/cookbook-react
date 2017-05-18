@@ -1,27 +1,44 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const authConfig = require('./config/auth');
+const User = require('./model/User');
 
 module.exports = function(passport){
 
 	passport.serializeUser(function(user, done) {
-		done(null, user.id);
+		done(null, user._id);
 	});
 
 	passport.deserializeUser(function(id, done) {
-		// User.findById(id, function(err, user) {
-		// 	done(err, user);
-			done(null, {displayName: 'Joey Spinoza'})
-		// });
+		User.findById(id, done);
 	});
 
 	passport.use(new GoogleStrategy({
-		clientID: 'xxx',
-		clientSecret: 'xxx',
-		callbackURL: 'http://localhost:3000/auth/google/callback'
+		clientID: authConfig.google.clientID,
+		clientSecret: authConfig.google.clientSecret,
+		callbackURL: authConfig.google.callbackURL
 	},
 	function(accessToken, refreshToken, profile, done){
-		console.log('profile:', profile);
-		done(null, profile);
+		let query = {
+			googleId: profile.id
+		};
+
+		let userData = {
+			name: profile.displayName,
+			googleId: profile.id,
+			email: profile.emails && profile.emails[0] ? profile.emails[0].value : null,
+			photo: profile.photos && profile.photos[0] ? profile.photos[0].value : null,
+			accessToken: accessToken,
+			refreshToken: refreshToken
+		};
+
+		let options = {
+			upsert: true,
+			new: true,
+			setDefaultsOnInsert: true
+		};
+
+		User.findOneAndUpdate(query, userData, options, done);
 	}));
 
 }
