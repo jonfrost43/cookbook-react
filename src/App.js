@@ -33,6 +33,18 @@ const mapDispatchToProps = dispatch => {
 };
 
 class _Shell extends Component {
+	state = {
+		user: null
+	}
+
+	constructor(){
+		super();
+
+		fetch('/api/user', {credentials: 'include'})
+			.then(res => res.ok ? res.json() : null)
+			.then(user => this.setState({user: user}));
+	}
+
 	addRecipes = () => {
 		recipes.forEach(recipe => {
 			this.props.addRecipe(recipe);
@@ -48,24 +60,26 @@ class _Shell extends Component {
 		this.toggleDrawer();
 	}
 
+	handleAuthClick = () => {
+		window.location = this.state.user ? '/auth/logout' : 'auth/google';
+	}
+
 	toggleDrawer = () => {
 		this.props.onSetDrawer(!this.props.app.isDrawerOpen);
 	}
 
 	render(){
+		let AuthLink = props => <MenuItem onTouchTap={this.handleAuthClick}>{this.state.user ? 'Sign out' : 'Sign in with Google'}</MenuItem>;
+
 		return (
 			<div>
-				<a href="/auth/google">Sign In with Google</a>
-				<Drawer
-					docked={false}
-					open={this.props.app.isDrawerOpen}
-					onRequestChange={this.props.app.toggleDrawer}
-					>
+				<Drawer docked={false} open={this.props.app.isDrawerOpen} onRequestChange={this.props.app.toggleDrawer}>
 					<AppBar title="Cookbook" onLeftIconButtonTouchTap={this.toggleDrawer} />
+					<AuthLink />
 					<MenuItem onTouchTap={this.toggleDrawer}>View all recipes</MenuItem>
 					<List>
-						<ListItem primaryText="Find by category" primaryTogglesNestedList={true} nestedItems=
-							{categories.map(c => <ListItem key={c.value} onTouchTap={() => this.handleClick({category: c.slug})} primaryText={c.label} />)}
+						<ListItem primaryText="Find by category" primaryTogglesNestedList={true}
+							nestedItems={categories.map(c => <ListItem key={c.value} onTouchTap={() => this.handleClick({category: c.slug})} primaryText={c.label} />)}
 						/>
 					</List>
 					<MenuItem onTouchTap={this.toggleDrawer}>Create new recipe</MenuItem>
