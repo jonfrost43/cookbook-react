@@ -3,7 +3,7 @@ import {
 	ADD_RECIPE,
 	EDIT_RECIPE,
 	DELETE_RECIPE,
-	CLEAR_RECIPES 
+	CLEAR_RECIPES
 } from './actions.js'
 
 const initialState = {
@@ -27,6 +27,10 @@ export function cookbookApp(state = initialState, action){
 		case ADD_RECIPE:
 			if(state.recipes.length){
 				nextRecipeId = Math.max.apply(Math, state.recipes.map(recipe => recipe.id)) + 1;
+			}
+
+			if(state.recipes.find(recipe => recipe._id === action.recipe._id)){
+				return state;
 			}
 
 			action.recipe.id = nextRecipeId;

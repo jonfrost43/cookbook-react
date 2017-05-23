@@ -18,8 +18,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onDelete: recipeId => {
-			dispatch(deleteRecipe(recipeId));
+		onDelete: recipe => {
+			dispatch(deleteRecipe(recipe.id));
+
+			fetch('/api/recipes/'+recipe._id, {
+				method: 'DELETE',
+				credentials: 'include'
+			});
 		}
 	};
 };
@@ -48,7 +53,7 @@ class Recipe extends Component {
 
 	onClickDelete = () => {
 		var recipe = this.props.recipes.filter(recipe => recipe.id === parseInt(this.props.params.recipeId, 10))[0];
-		this.props.onDelete(recipe.id);
+		this.props.onDelete(recipe);
 		browserHistory.push('/');
 	}
 

@@ -24,9 +24,24 @@ const mapDispatchToProps = dispatch => {
 	return {
 		onAdd: recipe => {
 			dispatch(addRecipe(recipe));
+
+			fetch('/api/recipes', {
+				headers: {'Content-Type': 'application/json'},
+				method: 'POST',
+				body: JSON.stringify(recipe),
+				credentials: 'include'
+			});
 		},
+
 		onEdit: recipe => {
 			dispatch(editRecipe(recipe));
+
+			fetch('/api/recipes', {
+				headers: {'Content-Type': 'application/json'},
+				method: 'PUT',
+				body: JSON.stringify(recipe),
+				credentials: 'include'
+			});
 		}
 	};
 };

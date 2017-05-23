@@ -14,6 +14,7 @@ require('./app/passport')(passport);
 db.connect(() => console.log('db connected'));
 
 app
+	.use(bodyParser.json())
 	.use(bodyParser.urlencoded({ extended: false }))
 	.use(cookieParser())
 	.use(cookieSession({secret:'c00kb00k'}))
@@ -22,7 +23,7 @@ app
 	.use(express.static('www'))
 	.use('/api', api);
 
-api.get('/user', (req, res) => req.user ? res.send(req.user) : res.status(404).send({error: 'No user found'}));
+api.use(require('./app/routes/api'));
 
 app.get('/auth/google',
 	passport.authenticate('google', {
