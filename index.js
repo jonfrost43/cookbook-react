@@ -20,7 +20,7 @@ app
 	.use(cookieSession({secret:'c00kb00k'}))
 	.use(passport.initialize())
 	.use(passport.session())
-	.use(express.static('www'))
+	.use(express.static(__dirname + '/www'))
 	.use('/api', api);
 
 api.use(require('./app/routes/api'));
