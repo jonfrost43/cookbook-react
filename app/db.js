@@ -11,7 +11,7 @@ module.exports = {
 
 		db.once('open', () => {
 			if(typeof onOpen === 'function'){
-				onOpen();
+				onOpen(db);
 			}
 		});
 

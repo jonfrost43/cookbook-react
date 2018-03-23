@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack --progress --profile --colors --config ./webpack.config.prod.js",
     "dev": "webpack --watch --progress",
-    "start": "node index"
+    "start": "node index",
+    "db_import": "node app/db/clean && node app/db/import"
   },
   "author": "",
   "license": "ISC",
