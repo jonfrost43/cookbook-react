@@ -57,7 +57,7 @@ class Home extends Component {
 				<div className="content">
 					<RecipeList recipes={recipes} />
 				</div>
-				<FloatingActionButton secondary={true} onClick={this.onClickFab} style={{position: 'fixed', bottom: 12, right: 12}}>
+				<FloatingActionButton secondary={true} onClick={this.onClickFab} style={{position: 'fixed', bottom: 20, right: 20}}>
 					<ContentAdd />
 				</FloatingActionButton>
 			</div>
