@@ -1,36 +1,45 @@
 body {
-    background: #f9f3ed;
+	background: #f9f3ed;
 }
 
 h1, h2, h3, p, ul, ol {
-    margin-bottom: 1em;
+	margin-bottom: 1em;
 }
 
 .content {
-    max-width: 600px;
-    margin: 0 auto;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+.recipeList {
+	display: flex;
+	flex-flow: row wrap;
 }
 
 .cardContainer {
-    padding: 8px;
+	padding: 8px;
+	flex: 1 0 300px;
+	max-width: 100%;
+	box-sizing: border-box;
 }
 
 .cardContainer > div {
-    cursor: pointer;
+	cursor: pointer;
+	height: 100%;
 }
 
 form {
-    padding: 8px;
+	padding: 8px;
 }
 
 .heroImage {
-    max-width: 100%;
+	max-width: 100%;
 }
 
 .recipe .text {
-    padding: 10px;
+	padding: 10px;
 }
 
 fieldset {
-    margin-bottom: 40px;
+	margin-bottom: 40px;
 }
