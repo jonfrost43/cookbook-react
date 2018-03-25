@@ -43,7 +43,7 @@ export function cookbookApp(state = initialState, action){
 		case EDIT_RECIPE:
 			return Object.assign({}, state, {
 				recipes: state.recipes.map(recipe => {
-					if(recipe.id === action.recipe.id){
+					if(recipe._id === action.recipe._id){
 						return action.recipe
 					}
 					return recipe

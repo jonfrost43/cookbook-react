@@ -23,9 +23,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		onAdd: recipe => {
-			dispatch(addRecipe(recipe));
-
-			fetch('/api/recipes', {
+			return fetch('/api/recipes', {
 				headers: {'Content-Type': 'application/json'},
 				method: 'POST',
 				body: JSON.stringify(recipe),
@@ -36,7 +34,7 @@ const mapDispatchToProps = dispatch => {
 		onEdit: recipe => {
 			dispatch(editRecipe(recipe));
 
-			fetch('/api/recipes', {
+			return fetch('/api/recipes', {
 				headers: {'Content-Type': 'application/json'},
 				method: 'PUT',
 				body: JSON.stringify(recipe),
@@ -130,14 +128,12 @@ class RecipeForm extends Component {
 		e.preventDefault();
 
 		if(this.state.recipe.name){
-			if(this.state.isEditing){
-				this.props.onEdit(this.state.recipe)
-			}
-			else {
-				this.props.onAdd(this.state.recipe);
-			}
+			let saveMethod = this.state.isEditing ? 'onEdit' : 'onAdd';
 
-			browserHistory.push('/');
+			this.props[saveMethod](this.state.recipe).then(function(){
+				browserHistory.push('/');
+			});
+
 		}
 	}
 
