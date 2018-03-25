@@ -26,8 +26,16 @@ const mapDispatchToProps = dispatch => {
 };
 
 class Home extends Component {
+	state = {
+		user: null
+	}
+
 	constructor(){
 		super();
+
+		fetch('/api/user', {credentials: 'include'})
+			.then(res => res.ok ? res.json() : null)
+			.then(user => this.setState({user: user}));
 
 		fetch('/api/recipes', {credentials: 'include'})
 			.then(res => res.ok ? res.json() : null)
@@ -57,7 +65,7 @@ class Home extends Component {
 				<div className="content">
 					<RecipeList recipes={recipes} />
 				</div>
-				<FloatingActionButton secondary={true} onClick={this.onClickFab} style={{position: 'fixed', bottom: 20, right: 20}}>
+				<FloatingActionButton className={!this.state.user ? 'hidden' : ''} secondary={true} onClick={this.onClickFab} style={{position: 'fixed', bottom: 20, right: 20}}>
 					<ContentAdd />
 				</FloatingActionButton>
 			</div>
