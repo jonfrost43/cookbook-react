@@ -3,12 +3,12 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import {List, ListItem} from 'material-ui/List';
+import { List, ListItem } from 'material-ui/List';
 import Home from './container/Home';
 import RecipeForm from './container/RecipeForm';
 import Recipe from './container/Recipe';
 import { connect } from 'react-redux';
-import { setDrawer, addRecipe, clearRecipes } from './model/actions';
+import { setDrawer } from './model/actions';
 import recipes from './data/recipes';
 import categories from './data/categories';
 
@@ -20,12 +20,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		addRecipe: recipe => {
-			dispatch(addRecipe(recipe));
-		},
-		clearRecipes: () => {
-			dispatch(clearRecipes());
-		},
 		onSetDrawer: open => {
 			dispatch(setDrawer(open));
 		}
@@ -43,16 +37,6 @@ class _Shell extends Component {
 		fetch('/api/user', {credentials: 'include'})
 			.then(res => res.ok ? res.json() : null)
 			.then(user => this.setState({user: user}));
-	}
-
-	addRecipes = () => {
-		recipes.forEach(recipe => {
-			this.props.addRecipe(recipe);
-		});
-	}
-
-	clearRecipes = () => {
-		this.props.clearRecipes();
 	}
 
 	handleClick = data => {
@@ -84,8 +68,6 @@ class _Shell extends Component {
 					</List>
 					<MenuItem onTouchTap={this.toggleDrawer}>Create new recipe</MenuItem>
 					<MenuItem onTouchTap={this.toggleDrawer}>Meal planner</MenuItem>
-					<MenuItem onTouchTap={this.addRecipes}>** Add recipes **</MenuItem>
-					<MenuItem onTouchTap={this.clearRecipes}>** Clear recipes **</MenuItem>
 				</Drawer>
 				{Children.map(this.props.children, child => {
 					return React.cloneElement(child, null, <AppBar title="Cookbook" onLeftIconButtonTouchTap={this.toggleDrawer} />)
