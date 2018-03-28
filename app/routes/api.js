@@ -4,6 +4,20 @@ const Recipe = require('../model/Recipe');
 module.exports = router
 	.get('/user', (req, res) => req.user ? res.send(req.user) : res.status(404).send({error: 'No user found'}))
 
+	.get('/user/recipes', (req, res) => {
+		Recipe.find({
+			userId: req.user._id
+		}, (err, recipes) => {
+			if(!err){
+				res.send(recipes);
+			}
+			else{
+				console.log(err);
+				res.status(500).send('A server error occurred')
+			}
+		})
+	})
+
 	.get('/recipes', (req, res) => {
 		Recipe.find({}, (err, recipes) => {
 			if(!err){
