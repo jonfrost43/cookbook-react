@@ -46,7 +46,7 @@ class Home extends Component {
 	}
 
 	componentDidUpdate(prevProps){
-		if(prevProps.route.path !== this.props.route.path){
+		if(prevProps.location.pathname !== this.props.location.pathname){
 			this.props.clearRecipes();
 			this.fetchRecipes();
 		}
