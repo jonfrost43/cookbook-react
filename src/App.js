@@ -39,8 +39,8 @@ class _Shell extends Component {
 			.then(user => this.setState({user: user}));
 	}
 
-	handleClick = data => {
-		browserHistory.push('/find/'+data.category);
+	goTo = path => {
+		browserHistory.push(path);
 		this.toggleDrawer();
 	}
 
@@ -60,13 +60,14 @@ class _Shell extends Component {
 				<Drawer docked={false} open={this.props.app.isDrawerOpen} onRequestChange={this.props.app.toggleDrawer}>
 					<AppBar title="Cookbook" onLeftIconButtonTouchTap={this.toggleDrawer} />
 					<AuthLink />
-					<MenuItem onTouchTap={this.toggleDrawer}>View all recipes</MenuItem>
+					<MenuItem onTouchTap={() => this.goTo('/')}>View all recipes</MenuItem>
+					<MenuItem onTouchTap={() => this.goTo('/my')}>View my recipes</MenuItem>
 					<List>
 						<ListItem primaryText="Find by category" primaryTogglesNestedList={true}
-							nestedItems={categories.map(c => <ListItem key={c.value} onTouchTap={() => this.handleClick({category: c.slug})} primaryText={c.label} />)}
+							nestedItems={categories.map(c => <ListItem key={c.value} onTouchTap={() => this.goTo('/find/' + c.slug)} primaryText={c.label} />)}
 						/>
 					</List>
-					<MenuItem onTouchTap={this.toggleDrawer}>Create new recipe</MenuItem>
+					<MenuItem onTouchTap={() => this.goTo('/create')}>Create new recipe</MenuItem>
 					<MenuItem onTouchTap={this.toggleDrawer}>Meal planner</MenuItem>
 				</Drawer>
 				{Children.map(this.props.children, child => {
@@ -85,6 +86,7 @@ class App extends Component {
 			<Router history={browserHistory}>
 				<Route path="/" component={Shell}>
 					<IndexRoute activeClassName="active" component={Home} />
+					<Route path="/my" activeClassName="active" component={Home} />
 					<Route path="/find/:category" activeClassName="active" component={Home} />
 					<Route path="/create" activeClassName="active" component={RecipeForm} />
 					<Route path="/edit/:recipeId/:recipeName" activeClassName="active" component={RecipeForm} />

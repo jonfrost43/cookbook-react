@@ -4,7 +4,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { setDrawer, addRecipe } from '../model/actions';
+import { setDrawer, addRecipe, clearRecipes } from '../model/actions';
 import categories from '../data/categories';
 
 const mapStateToProps = state => {
@@ -19,6 +19,9 @@ const mapDispatchToProps = dispatch => {
 		addRecipe: recipe => {
 			dispatch(addRecipe(recipe));
 		},
+		clearRecipes: () => {
+			dispatch(clearRecipes());
+		},
 		onSetDrawer: open => {
 			dispatch(setDrawer(open));
 		}
@@ -30,22 +33,45 @@ class Home extends Component {
 		user: null
 	}
 
-	constructor(){
+	constructor(props){
 		super();
 
 		fetch('/api/user', {credentials: 'include'})
 			.then(res => res.ok ? res.json() : null)
 			.then(user => this.setState({user: user}));
+	}
 
-		fetch('/api/recipes', {credentials: 'include'})
-			.then(res => res.ok ? res.json() : null)
-			.then(recipes => {
-				if(recipes.length){
-					recipes.forEach(recipe => {
-						this.props.addRecipe(recipe);
-					});
-				}
-			});
+	componentDidMount(){
+		this.fetchRecipes();
+	}
+
+	componentDidUpdate(prevProps){
+		if(prevProps.route.path !== this.props.route.path){
+			this.props.clearRecipes();
+			this.fetchRecipes();
+		}
+	}
+
+	fetchRecipes(){
+		let serviceUrl = '/api/recipes',
+			user = '',
+			categoryId = '';
+
+		if(this.props.route.path === '/my'){
+			user = '/user';
+		}
+
+		if(this.props.params.category){
+			categoryId = '/' + categories.filter(c => c.slug === this.props.params.category)[0].value;
+		}
+
+		return fetch(`/api${user}/recipes${categoryId}`, {credentials: 'include'})
+				.then(res => res.ok ? res.json() : null)
+				.then(recipes => {
+					if(recipes.length){
+						recipes.forEach(this.props.addRecipe);
+					}
+				});
 	}
 
 	onClickFab(){
@@ -57,13 +83,11 @@ class Home extends Component {
 	}
 
 	render(){
-		let categoryId = this.props.params.category ? categories.filter(c => c.slug === this.props.params.category)[0].value : null;
-		let recipes = categoryId ? this.props.recipes.filter(r => r.category === categoryId) : this.props.recipes;
 		return (
 			<div>
 				{this.props.children}
 				<div className="content">
-					<RecipeList recipes={recipes} />
+					<RecipeList recipes={this.props.recipes} />
 				</div>
 				<FloatingActionButton className={!this.state.user ? 'hidden' : ''} secondary={true} onClick={this.onClickFab} style={{position: 'fixed', bottom: 20, right: 20}}>
 					<ContentAdd />
