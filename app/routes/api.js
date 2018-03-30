@@ -7,7 +7,7 @@ module.exports = router
 	.get('(/user)?/recipes(/:category)?', (req, res) => {
 		let options = {};
 
-		if(req.user && req.user_id){
+		if(req.user && req.user._id){
 			options.userId = req.user._id;
 		}
 
