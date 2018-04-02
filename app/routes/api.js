@@ -7,7 +7,7 @@ module.exports = router
 	.get('(/user)?/recipes(/:category)?', (req, res) => {
 		let options = {};
 
-		if(req.user && req.user._id){
+		if(req.path.startsWith('/user') && req.user && req.user._id){
 			options.userId = req.user._id;
 		}
 
