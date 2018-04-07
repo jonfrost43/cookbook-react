@@ -45,4 +45,24 @@ app.get('/auth/logout', (req, res) => {
 	res.redirect('/')
 });
 
+app.get('*', (req, res) => {
+	res.send(`
+		<!DOCTYPE html>
+		<html>
+			<head>
+				<meta charset="utf-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+				<link rel="stylesheet" href="/style/reset.css" />
+				<link rel="stylesheet" href="/style/layout.css" />
+				<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+				<title>Cookbook in React</title>
+			</head>
+			<body>
+				<div id="app"></div>
+				<script src="/bundle.js"></script>
+			</body>
+		</html>
+	`);
+});
+
 app.listen(port, () => console.log(pkg.name + ' app listening on port ' + port));

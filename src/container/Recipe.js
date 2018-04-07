@@ -8,7 +8,7 @@ import NavigationBack from 'material-ui/svg-icons/navigation/arrow-back';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { deleteRecipe } from '../model/actions';
+import { addRecipe, deleteRecipe } from '../model/actions';
 
 const mapStateToProps = state => {
 	return {
@@ -18,6 +18,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
+		addRecipe: recipe => {
+			dispatch(addRecipe(recipe));
+		},
 		onDelete: recipe => {
 			dispatch(deleteRecipe(recipe.id));
 
@@ -41,6 +44,14 @@ const AppBarMenu = (props) => (
 );
 
 class Recipe extends Component {
+	constructor(props){
+		super();
+
+		fetch('/api/recipes', {credentials: 'include'})
+			.then(res => res.ok ? res.json() : null)
+			.then(recipes => recipes.forEach(recipe => props.addRecipe(recipe)));
+	}
+
 	onClickBack(){
 		browserHistory.goBack();
 	}
@@ -59,6 +70,10 @@ class Recipe extends Component {
 
 	render(){
 		var recipe = this.props.recipes.filter(recipe => recipe.id === parseInt(this.props.params.recipeId, 10))[0];
+
+		if(!recipe){
+			return null;
+		}
 
 		return (
 			<div className="recipe">

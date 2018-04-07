@@ -22,6 +22,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
+		addRecipe: recipe => {
+			dispatch(addRecipe(recipe));
+		},
+
 		onAdd: recipe => {
 			return fetch('/api/recipes', {
 				headers: {'Content-Type': 'application/json'},
@@ -48,17 +52,38 @@ class RecipeForm extends Component {
 	constructor(props){
 		super()
 
-		let recipe = props.recipes.filter(recipe => recipe.id === parseInt(props.params.recipeId, 10))[0];
+		let isEditing = !!props.params.recipeId,
+			recipe = props.recipes.filter(recipe => recipe.id === parseInt(props.params.recipeId, 10))[0];
 
 		this.state = {
-			isEditing: !!recipe,
-			appBarTitle: recipe ? 'Edit recipe' : 'Create recipe',
+			isEditing,
+			appBarTitle: isEditing ? 'Edit recipe' : 'Create recipe',
 			recipe: Object.assign({
 				name: '',
 				category: null,
 				ingredients: [],
 				method: []
 			}, recipe)
+		}
+
+		if(isEditing && !recipe){
+			fetch('/api/recipes', {credentials: 'include'})
+				.then(res => res.ok ? res.json() : null)
+				.then(recipes => recipes.forEach(recipe => props.addRecipe(recipe)))
+				.then(() => {
+					this.props.recipes.forEach(recipe => {
+						if(recipe.id === parseInt(props.params.recipeId, 10)){
+							this.setState({
+								recipe: Object.assign({
+									name: '',
+									category: null,
+									ingredients: [],
+									method: []
+								}, recipe)
+							})
+						}
+					})
+				});
 		}
 	}
 
@@ -138,6 +163,10 @@ class RecipeForm extends Component {
 	}
 
 	render(){
+		if(this.state.isEditing && !this.state.recipe.id){
+			return null;
+		}
+
 		return (
 			<div>
 				{Children.map(this.props.children, child => {
