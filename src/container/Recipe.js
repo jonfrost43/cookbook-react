@@ -6,9 +6,12 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationBack from 'material-ui/svg-icons/navigation/arrow-back';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { addRecipe, deleteRecipe } from '../model/actions';
+
+import DocumentTitle from '../component/DocumentTitle'
 
 const mapStateToProps = state => {
 	return {
@@ -77,6 +80,8 @@ class Recipe extends Component {
 
 		return (
 			<div className="recipe">
+				<DocumentTitle title={recipe.name} />
+				
 				{Children.map(this.props.children, child => {
 					return React.cloneElement(child, Object.assign({}, child.props, {
 						title: recipe.name,
