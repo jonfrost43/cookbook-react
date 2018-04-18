@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router';
 class RecipeListItem extends Component {
 	onClickRecipe = () => {
 		let recipe = this.props.recipe;
-		let path = '/recipe/'+recipe.id+'/'+recipe.name.replace(/\s/g, '-').toLowerCase();
+		let path = '/recipe/'+recipe.name.replace(/\s/g, '-').toLowerCase()+'/'+recipe._id;
 		browserHistory.push(path);
 	}
 
@@ -15,7 +15,7 @@ class RecipeListItem extends Component {
 			image = recipe.image ? <img src={recipe.image} /> : <span />;
 
 		return (
-			<li key={recipe.id} className="cardContainer">
+			<li key={recipe._id} className="cardContainer">
 				<Card containerStyle={{paddingBottom:0}} onClick={this.onClickRecipe}>
 					<CardMedia>{image}</CardMedia>
 					<CardTitle title={recipe.name} />
@@ -27,7 +27,7 @@ class RecipeListItem extends Component {
 
 var RecipeList = props => {
 	let recipes = Array.isArray(props.recipes) ? props.recipes : [];
-	
+
 	return (
 		<ul className="recipeList">
 			{recipes.map(function(recipe){

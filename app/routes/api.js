@@ -26,6 +26,18 @@ module.exports = router
 		})
 	})
 
+	.get('/recipe/:id', (req, res) => {
+		Recipe.findById(req.params.id, (err, recipe) => {
+			if(!err){
+				res.send(recipe);
+			}
+			else{
+				console.log(err);
+				res.status(500).send('A server error occurred')
+			}
+		})
+	})
+
 	.post('/recipes', (req, res) => {
 		let recipe = new Recipe(req.body);
 

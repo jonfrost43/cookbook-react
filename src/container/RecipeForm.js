@@ -53,7 +53,7 @@ class RecipeForm extends Component {
 		super()
 
 		let isEditing = !!props.params.recipeId,
-			recipe = props.recipes.filter(recipe => recipe.id === parseInt(props.params.recipeId, 10))[0];
+			recipe = props.recipes.filter(recipe => recipe._id === props.params.recipeId)[0];
 
 		this.state = {
 			isEditing,
@@ -72,7 +72,7 @@ class RecipeForm extends Component {
 				.then(recipes => recipes.forEach(recipe => props.addRecipe(recipe)))
 				.then(() => {
 					this.props.recipes.forEach(recipe => {
-						if(recipe.id === parseInt(props.params.recipeId, 10)){
+						if(recipe._id === props.params.recipeId){
 							this.setState({
 								recipe: Object.assign({
 									name: '',
@@ -163,7 +163,7 @@ class RecipeForm extends Component {
 	}
 
 	render(){
-		if(this.state.isEditing && !this.state.recipe.id){
+		if(this.state.isEditing && !this.state.recipe._id){
 			return null;
 		}
 

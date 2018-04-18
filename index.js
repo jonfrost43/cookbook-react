@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const axios = require('axios');
 const db = require('./app/db');
 const pkg = require('./package.json');
 const port = process.env.PORT || 3000;
@@ -45,7 +46,20 @@ app.get('/auth/logout', (req, res) => {
 	res.redirect('/')
 });
 
+app.get('/recipe/:name/:id', (req, res, next) => {
+	axios(`http://localhost:3000/api/recipe/${req.params.id}`)
+		.then(response => {
+			req.recipe = response.data
+			next()
+		})
+		.catch(err => {
+			res.status(500).send('A server error occurred')
+		});
+});
+
 app.get('*', (req, res) => {
+	let titlePrefix = req.recipe ? req.recipe.name+' | ' : '';
+
 	res.send(`
 		<!DOCTYPE html>
 		<html>
@@ -55,7 +69,7 @@ app.get('*', (req, res) => {
 				<link rel="stylesheet" href="/style/reset.css" />
 				<link rel="stylesheet" href="/style/layout.css" />
 				<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-				<title>Cookbook in React</title>
+				<title>${titlePrefix}Cookbook in React</title>
 			</head>
 			<body>
 				<div id="app"></div>

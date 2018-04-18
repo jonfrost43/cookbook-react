@@ -60,19 +60,19 @@ class Recipe extends Component {
 	}
 
 	onClickEdit = () => {
-		var recipe = this.props.recipes.filter(recipe => recipe.id === parseInt(this.props.params.recipeId, 10))[0];
-		var path = '/edit/'+recipe.id+'/'+recipe.name.replace(/\s/g, '-').toLowerCase();
+		var recipe = this.props.recipes.filter(recipe => recipe._id === this.props.params.recipeId)[0];
+		var path = '/edit/'+recipe.name.replace(/\s/g, '-').toLowerCase()+'/'+recipe._id;
 		browserHistory.push(path);
 	}
 
 	onClickDelete = () => {
-		var recipe = this.props.recipes.filter(recipe => recipe.id === parseInt(this.props.params.recipeId, 10))[0];
+		var recipe = this.props.recipes.filter(recipe => recipe._id === this.props.params.recipeId)[0];
 		this.props.onDelete(recipe);
 		browserHistory.push('/');
 	}
 
 	render(){
-		var recipe = this.props.recipes.filter(recipe => recipe.id === parseInt(this.props.params.recipeId, 10))[0];
+		var recipe = this.props.recipes.filter(recipe => recipe._id === this.props.params.recipeId)[0];
 
 		if(!recipe){
 			return null;
@@ -81,7 +81,7 @@ class Recipe extends Component {
 		return (
 			<div className="recipe">
 				<DocumentTitle title={recipe.name} />
-				
+
 				{Children.map(this.props.children, child => {
 					return React.cloneElement(child, Object.assign({}, child.props, {
 						title: recipe.name,
