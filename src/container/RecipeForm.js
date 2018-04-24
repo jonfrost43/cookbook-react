@@ -199,7 +199,7 @@ class RecipeForm extends Component {
 						<fieldset className="description">
 			                <div>
 								<SelectField name="category" value={this.state.recipe.category} onChange={this.onCategoryChange} floatingLabelText="Category">
-									{categories.map(c => <MenuItem value={c.value} primaryText={c.label} />)}
+									{categories.map((category, index) => <MenuItem key={index} value={category.value} primaryText={category.label} />)}
 								</SelectField>
 			                </div>
 			                <div>
