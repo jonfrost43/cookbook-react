@@ -46,10 +46,10 @@ app.get('/auth/logout', (req, res) => {
 	res.redirect('/')
 });
 
-app.get('/recipe/:name/:id', (req, res, next) => {
+app.get('/recipe/:name/(:id)(/edit)?', (req, res, next) => {
 	axios(`http://localhost:3000/api/recipe/${req.params.id}`)
 		.then(response => {
-			req.recipe = response.data
+			req.titlePrefix = response.data.name ? response.data.name+' | ' : ''
 			next()
 		})
 		.catch(err => {
@@ -58,7 +58,7 @@ app.get('/recipe/:name/:id', (req, res, next) => {
 });
 
 app.get('*', (req, res) => {
-	let titlePrefix = req.recipe ? req.recipe.name+' | ' : '';
+	let titlePrefix = req.titlePrefix || '';
 
 	res.send(`
 		<!DOCTYPE html>

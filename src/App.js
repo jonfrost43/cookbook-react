@@ -89,7 +89,7 @@ class App extends Component {
 					<Route path="/my" activeClassName="active" component={Home} />
 					<Route path="/find/:category" activeClassName="active" component={Home} />
 					<Route path="/create" activeClassName="active" component={RecipeForm} />
-					<Route path="/edit/:recipeName/:recipeId" activeClassName="active" component={RecipeForm} />
+					<Route path="/recipe/:recipeName/:recipeId/edit" activeClassName="active" component={RecipeForm} />
 					<Route path="/recipe/:recipeName/:recipeId" activeClassName="active" component={Recipe} />
 				</Route>
 			</Router>

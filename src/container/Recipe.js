@@ -61,7 +61,7 @@ class Recipe extends Component {
 
 	onClickEdit = () => {
 		var recipe = this.props.recipes.filter(recipe => recipe._id === this.props.params.recipeId)[0];
-		var path = '/edit/'+recipe.name.replace(/\s/g, '-').toLowerCase()+'/'+recipe._id;
+		var path = '/recipe/'+recipe.name.replace(/\s/g, '-').toLowerCase()+'/'+recipe._id+'/edit';
 		browserHistory.push(path);
 	}
 
