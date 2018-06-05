@@ -7,7 +7,6 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationBack from 'material-ui/svg-icons/navigation/arrow-back';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
-import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { addRecipe, deleteRecipe } from '../model/actions';
 
@@ -50,46 +49,48 @@ class Recipe extends Component {
 	constructor(props){
 		super();
 
+		console.log(props);
+
 		fetch('/api/recipes', {credentials: 'include'})
 			.then(res => res.ok ? res.json() : null)
 			.then(recipes => recipes.forEach(recipe => props.addRecipe(recipe)));
 	}
 
 	onClickBack(){
-		browserHistory.goBack();
+		history.back();
 	}
 
 	onClickEdit = () => {
-		var recipe = this.props.recipes.filter(recipe => recipe._id === this.props.params.recipeId)[0];
+		var recipe = this.props.recipes.filter(recipe => recipe._id === this.props.match.params.recipeId)[0];
 		var path = '/recipe/'+recipe.name.replace(/\s/g, '-').toLowerCase()+'/'+recipe._id+'/edit';
-		browserHistory.push(path);
+		this.props.history.push(path);
 	}
 
 	onClickDelete = () => {
-		var recipe = this.props.recipes.filter(recipe => recipe._id === this.props.params.recipeId)[0];
+		var recipe = this.props.recipes.filter(recipe => recipe._id === this.props.match.params.recipeId)[0];
 		this.props.onDelete(recipe);
-		browserHistory.push('/');
+		this.props.history.push('/');
 	}
 
 	render(){
-		var recipe = this.props.recipes.filter(recipe => recipe._id === this.props.params.recipeId)[0];
+		var recipe = this.props.recipes.filter(recipe => recipe._id === this.props.match.params.recipeId)[0];
 
 		if(!recipe){
 			return null;
 		}
 
+		let appBar = Children.only(this.props.children);
+
 		return (
 			<div className="recipe">
 				<DocumentTitle title={recipe.name} />
 
-				{Children.map(this.props.children, child => {
-					return React.cloneElement(child, Object.assign({}, child.props, {
-						title: recipe.name,
-						onLeftIconButtonTouchTap: null,
-						iconElementLeft: <IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>,
-						iconElementRight: <AppBarMenu onClickEdit={this.onClickEdit} onClickDelete={this.onClickDelete} />
-					}));
-				})}
+				{React.cloneElement(appBar, Object.assign({}, appBar.props, {
+					title: recipe.name,
+					onLeftIconButtonClick: null,
+					iconElementLeft: <IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>,
+					iconElementRight: <AppBarMenu onClickEdit={this.onClickEdit} onClickDelete={this.onClickDelete} />
+				}))}
 
 				<Paper rounded={false} style={{maxWidth:600, margin:'0 auto'}}>
 					<img src={recipe.image} className="heroImage" />

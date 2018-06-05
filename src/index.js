@@ -8,6 +8,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { deepOrangeA200, darkBlack } from 'material-ui/styles/colors';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 
 injectTapEventPlugin();
@@ -25,7 +26,9 @@ const muiTheme = getMuiTheme({
 ReactDOM.render(
 	<Provider store={store}>
 		<MuiThemeProvider muiTheme={muiTheme}>
-			<App></App>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
 		</MuiThemeProvider>
 	</Provider>,
 	document.getElementById('app')

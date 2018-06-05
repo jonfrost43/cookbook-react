@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import { browserHistory } from 'react-router';
 
-class RecipeListItem extends Component {
+class _RecipeListItem extends Component {
 	onClickRecipe = () => {
 		let recipe = this.props.recipe;
 		let path = '/recipe/'+recipe.name.replace(/\s/g, '-').toLowerCase()+'/'+recipe._id;
-		browserHistory.push(path);
+		this.props.history.push(path);
 	}
 
 	render(){
@@ -24,6 +23,8 @@ class RecipeListItem extends Component {
 		);
 	}
 }
+
+var RecipeListItem = withRouter(_RecipeListItem)
 
 var RecipeList = props => {
 	let recipes = Array.isArray(props.recipes) ? props.recipes : [];

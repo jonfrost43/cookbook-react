@@ -9,7 +9,6 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { addRecipe, editRecipe } from '../model/actions';
 import categories from '../data/categories'
@@ -52,8 +51,8 @@ class RecipeForm extends Component {
 	constructor(props){
 		super()
 
-		let isEditing = !!props.params.recipeId,
-			recipe = props.recipes.filter(recipe => recipe._id === props.params.recipeId)[0];
+		let isEditing = !!props.match.params.recipeId,
+			recipe = props.recipes.filter(recipe => recipe._id === props.match.params.recipeId)[0];
 
 		this.state = {
 			isEditing,
@@ -72,7 +71,7 @@ class RecipeForm extends Component {
 				.then(recipes => recipes.forEach(recipe => props.addRecipe(recipe)))
 				.then(() => {
 					this.props.recipes.forEach(recipe => {
-						if(recipe._id === props.params.recipeId){
+						if(recipe._id === props.match.params.recipeId){
 							this.setState({
 								recipe: Object.assign({
 									name: '',
@@ -88,7 +87,7 @@ class RecipeForm extends Component {
 	}
 
 	onClickBack(){
-		browserHistory.goBack();
+		history.back();
 	}
 
 	handleChange = e => {
@@ -155,8 +154,8 @@ class RecipeForm extends Component {
 		if(this.state.recipe.name){
 			let saveMethod = this.state.isEditing ? 'onEdit' : 'onAdd';
 
-			this.props[saveMethod](this.state.recipe).then(function(){
-				browserHistory.push('/');
+			this.props[saveMethod](this.state.recipe).then(() => {
+				this.props.history.push('/');
 			});
 
 		}
@@ -167,16 +166,16 @@ class RecipeForm extends Component {
 			return null;
 		}
 
+		let appBar = Children.only(this.props.children);
+
 		return (
 			<div>
-				{Children.map(this.props.children, child => {
-					return React.cloneElement(child, Object.assign({}, child.props, {
-						title: this.state.appBarTitle,
-						onLeftIconButtonTouchTap: null,
-						iconElementLeft: <IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>,
-						iconElementRight: <IconButton onClick={this.onSubmit}><DoneIcon /></IconButton>
-					}));
-				})}
+				{React.cloneElement(appBar, Object.assign({}, appBar.props, {
+					title: this.state.appBarTitle,
+					onLeftIconButtonClick: null,
+					iconElementLeft: <IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>,
+					iconElementRight: <IconButton onClick={this.onSubmit}><DoneIcon /></IconButton>
+				}))}
 
 				<Paper rounded={false} style={{maxWidth:600, margin:'0 auto'}}>
 					<form name="createRecipe">

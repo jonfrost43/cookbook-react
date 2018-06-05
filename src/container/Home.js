@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Children } from 'react';
 import RecipeList from '../component/RecipeList';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { setDrawer, addRecipe, clearRecipes } from '../model/actions';
 import categories from '../data/categories';
@@ -36,6 +35,8 @@ class Home extends Component {
 	constructor(props){
 		super();
 
+		console.log(props);
+
 		fetch('/api/user', {credentials: 'include'})
 			.then(res => res.ok ? res.json() : null)
 			.then(user => this.setState({user: user}));
@@ -57,12 +58,12 @@ class Home extends Component {
 			user = '',
 			categoryId = '';
 
-		if(this.props.route.path === '/my'){
+		if(this.props.match.path === '/my'){
 			user = '/user';
 		}
 
-		if(this.props.params.category){
-			categoryId = '/' + categories.filter(c => c.slug === this.props.params.category)[0].value;
+		if(this.props.match.params.category){
+			categoryId = '/' + categories.filter(c => c.slug === this.props.match.params.category)[0].value;
 		}
 
 		return fetch(`/api${user}/recipes${categoryId}`, {credentials: 'include'})
@@ -74,8 +75,8 @@ class Home extends Component {
 				});
 	}
 
-	onClickFab(){
-		browserHistory.push('/create');
+	onClickFab = () => {
+		this.props.history.push('/create');
 	}
 
 	toggleDrawer = () => {
@@ -83,9 +84,14 @@ class Home extends Component {
 	}
 
 	render(){
+		let appBar = Children.only(this.props.children);
+
 		return (
 			<div>
-				{this.props.children}
+				{React.cloneElement(appBar, Object.assign({}, appBar.props, {
+					onLeftIconButtonClick: this.toggleDrawer
+				}))}
+
 				<div className="content">
 					<RecipeList recipes={this.props.recipes} />
 				</div>
