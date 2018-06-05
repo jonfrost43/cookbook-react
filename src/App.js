@@ -6,11 +6,11 @@ import Home from './container/Home';
 import RecipeForm from './container/RecipeForm';
 import Recipe from './container/Recipe';
 
-const RouteWithAppBar = props => (
-	<Route path={props.path} exact={props.exact} render={props2 => (
-		<props.component match={props2.match} location={props2.location} history={props2.history}>
+const RouteWithAppBar = ({ component: Component, ...rest }) => (
+	<Route {...rest} render={props => (
+		<Component {...props}>
 			<AppBar title="Cookbook" />
-		</props.component>
+		</Component>
 	)} />
 )
 
