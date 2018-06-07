@@ -1,13 +1,14 @@
 var path = require('path');
 
 module.exports = {
+	mode: 'development',
 	entry: './src/index.js',
 	output: {
 		path: path.join(__dirname, 'www'),
 		filename: 'bundle.js'
 	},
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /.js?$/,
 				loader: 'babel-loader',
