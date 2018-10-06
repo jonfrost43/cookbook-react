@@ -1,10 +1,8 @@
 import React, { Component, Children } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import Loadable from 'react-loadable';
 import AppBar from 'material-ui/AppBar';
 import NavTop from './component/NavTop';
-import Home from './container/Home';
-import RecipeForm from './container/RecipeForm';
-import Recipe from './container/Recipe';
 
 const RouteWithAppBar = ({ component: Component, ...rest }) => (
 	<Route {...rest} render={props => (
@@ -13,6 +11,23 @@ const RouteWithAppBar = ({ component: Component, ...rest }) => (
 		</Component>
 	)} />
 )
+
+const Loading = () => <div>Loading...</div>
+
+const Home = Loadable({
+	loader: () => import('./container/Home'),
+	loading: Loading
+})
+
+const Recipe = Loadable({
+	loader: () => import('./container/Recipe'),
+	loading: Loading
+})
+
+const RecipeForm = Loadable({
+	loader: () => import('./container/RecipeForm'),
+	loading: Loading
+})
 
 class App extends Component {
 	render(){
