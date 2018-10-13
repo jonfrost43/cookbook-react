@@ -5,6 +5,7 @@ import NavigationBack from 'material-ui/svg-icons/navigation/arrow-back';
 import DoneIcon from 'material-ui/svg-icons/action/done';
 import Ingredients from '../component/Ingredients';
 import RecipeMethod from '../component/RecipeMethod';
+import ImageUpload from '../component/ImageUpload';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -177,12 +178,15 @@ class RecipeForm extends Component {
 					iconElementRight: <IconButton onClick={this.onSubmit}><DoneIcon /></IconButton>
 				}))}
 
-				<Paper rounded={false} style={{maxWidth:600, margin:'0 auto'}}>
+				<Paper rounded={false} style={{maxWidth:700, margin:'0 auto'}}>
 					<form name="createRecipe">
+						<fieldset className="image">
+							<ImageUpload id={'imageUpload_'+this.state.recipe._id} />
+						</fieldset>
 						<fieldset className="name description">
 							<div>
-								<TextField name="name" floatingLabelText="Recipe name" fullWidth={true} autoFocus style={{fontSize:'20px', height:'78px'}}
-								 	onChange={this.handleChange} value={this.state.recipe.name}/>
+								<TextField name="name" floatingLabelText="Recipe name" fullWidth={true} autoFocus={!this.state.isEditing} style={{fontSize:'20px', height:'78px'}}
+									onChange={this.handleChange} value={this.state.recipe.name}/>
 							</div>
 						</fieldset>
 						<Ingredients
@@ -196,15 +200,15 @@ class RecipeForm extends Component {
 							onChange={this.onMethodStepChange}
 						/>
 						<fieldset className="description">
-			                <div>
+							<div>
 								<SelectField name="category" value={this.state.recipe.category} onChange={this.onCategoryChange} floatingLabelText="Category">
 									{categories.map((category, index) => <MenuItem key={index} value={category.value} primaryText={category.label} />)}
 								</SelectField>
-			                </div>
-			                <div>
+							</div>
+							<div>
 								<TextField name="tags" floatingLabelText="Tags" hintText="Add tags..." />
-			                </div>
-			            </fieldset>
+							</div>
+						</fieldset>
 						<RaisedButton label="Done" secondary={true} onClick={this.onSubmit} />
 					</form>
 				</Paper>

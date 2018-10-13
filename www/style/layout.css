@@ -47,3 +47,7 @@ form {
 fieldset {
 	margin-bottom: 40px;
 }
+
+fieldset.image {
+	margin: -10px -8px 0;
+}

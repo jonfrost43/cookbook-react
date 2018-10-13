@@ -1,0 +1,48 @@
+.imageUpload {
+	background: #f6f6f6;
+}
+
+.imageUpload.hasPreview .uploadInput {
+	display: none;
+}
+
+.uploadInput label {
+	cursor: pointer;
+	display: block;
+	padding: 50px 0;
+	text-align: center;
+}
+
+.uploadInput label > * {
+	padding: 0 2px;
+	vertical-align: text-bottom;
+}
+
+.uploadInput input[type=file] {
+	display: none;
+}
+
+.imagePreview {
+	display: flex;
+	flex-direction: column;
+	height: 0px;
+	justify-content: center;
+	overflow: hidden;
+	position: relative;
+	transition: height .3s;
+}
+
+.imageControls {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.imageUpload.hasPreview .imagePreview {
+	height: 150px;
+}
+
+.imagePreview img {
+	display: block;
+	width: 100%;
+}
