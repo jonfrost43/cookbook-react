@@ -1,5 +1,10 @@
 const router = require('express').Router();
 const Recipe = require('../model/Recipe');
+const multer =  require('multer');
+
+const upload = multer({
+	dest: 'www/img/uploads'
+});
 
 module.exports = router
 	.get('/user', (req, res) => req.user ? res.send(req.user) : res.status(404).send({error: 'No user found'}))
@@ -90,5 +95,17 @@ module.exports = router
 		.catch(err => {
 			console.log(err);
 			res.status(500).send('A server error occurred');
+		});
+	})
+
+	.post('/image', (req, res) => {
+		upload.single('image')(req, res, function(err){
+			if(err){
+				console.log(err);
+				res.status(500).send('A server error occurred');
+			}
+			else {
+				res.send(req.file);
+			}
 		});
 	});

@@ -2,3 +2,4 @@ app/config
 node_modules
 bundle.js
 bundle.js.map
+www/img/uploads
