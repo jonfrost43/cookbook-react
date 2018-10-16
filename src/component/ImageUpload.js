@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import AddPhotoIcon from 'material-ui/svg-icons/image/add-a-photo';
 import IconButton from 'material-ui/IconButton';
 import FullScreenIcon from 'material-ui/svg-icons/navigation/fullscreen';
@@ -9,6 +9,8 @@ import './imageUpload.css';
 class ImageUpload extends Component {
 	constructor(props){
 		super();
+
+		this.imageRef = createRef();
 
 		this.state = {
 			previewUrl: null,
@@ -35,7 +37,7 @@ class ImageUpload extends Component {
 			this.setState({
 				isPreviewExpanded: true,
 				styles: {
-					height: '308px'
+					height: this.imageRef.current.clientHeight+'px'
 				}
 			});
 		}
@@ -56,7 +58,7 @@ class ImageUpload extends Component {
 					<div className="imageControls">
 						<IconButton onClick={this.handleClickFullScreen}><FullScreenIcon /></IconButton>
 					</div>
-					<img src={this.state.previewUrl} />
+					<img src={this.state.previewUrl} ref={this.imageRef} />
 				</div>
 			</div>
 		)
