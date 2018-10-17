@@ -3,6 +3,8 @@ import AddPhotoIcon from 'material-ui/svg-icons/image/add-a-photo';
 import IconButton from 'material-ui/IconButton';
 import FullScreenIcon from 'material-ui/svg-icons/navigation/fullscreen';
 import FullScreenExitIcon from 'material-ui/svg-icons/navigation/fullscreen-exit';
+import LinearProgress from 'material-ui/LinearProgress';
+import { deepOrangeA200 } from 'material-ui/styles/colors';
 import './imageUpload.css';
 
 
@@ -58,6 +60,12 @@ class ImageUpload extends Component {
 					<div className="imageControls">
 						<IconButton onClick={this.handleClickFullScreen}><FullScreenIcon /></IconButton>
 					</div>
+					<LinearProgress mode="indeterminate" color={deepOrangeA200} style={{
+						backgroundColor:'none',
+						borderRadius:0,
+						position:'absolute',
+						top:0}}
+					/>
 					<img src={this.state.previewUrl} ref={this.imageRef} />
 				</div>
 			</div>
