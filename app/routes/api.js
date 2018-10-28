@@ -3,7 +3,10 @@ const Recipe = require('../model/Recipe');
 const multer =  require('multer');
 
 const upload = multer({
-	dest: 'www/img/uploads'
+	dest: 'www/img/uploads',
+	limits: {
+		fieldSize: 5 * 1024 * 1024 // 5MB
+	}
 });
 
 module.exports = router
