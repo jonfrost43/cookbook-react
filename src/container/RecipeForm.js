@@ -99,6 +99,15 @@ class RecipeForm extends Component {
 		});
 	}
 
+	handleUploadComplete = (filePath) => {
+		this.setState({
+			recipe: {
+				...this.state.recipe,
+				image: filePath
+			}
+		});
+	}
+
 	onCategoryChange = (e, index, value) => {
 		this.setState({
 			recipe: Object.assign(this.state.recipe, {
@@ -181,7 +190,9 @@ class RecipeForm extends Component {
 				<Paper rounded={false} style={{maxWidth:700, margin:'0 auto'}}>
 					<form name="createRecipe">
 						<fieldset className="image">
-							<ImageUpload id={'imageUpload_'+this.state.recipe._id} />
+							<ImageUpload id={'imageUpload_'+this.state.recipe._id}
+								image={this.state.recipe.image}
+								onUploadComplete={this.handleUploadComplete} />
 						</fieldset>
 						<fieldset className="name description">
 							<div>
