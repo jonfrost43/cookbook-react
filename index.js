@@ -15,8 +15,8 @@ require('./app/passport')(passport);
 db.connect(() => console.log('db connected'));
 
 app
-	.use(bodyParser.json())
-	.use(bodyParser.urlencoded({ extended: false }))
+	.use(bodyParser.json({ limit: '10mb' }))
+	.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
 	.use(cookieParser())
 	.use(cookieSession({secret:'c00kb00k'}))
 	.use(passport.initialize())
