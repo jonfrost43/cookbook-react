@@ -16,7 +16,12 @@ class _RecipeListItem extends Component {
 		return (
 			<li key={recipe._id} className="cardContainer">
 				<Card containerStyle={{paddingBottom:0}} onClick={this.onClickRecipe}>
-					<CardMedia>{image}</CardMedia>
+					<CardMedia style={{
+						display: 'flex',
+						alignItems: 'center',
+						maxHeight: '120px',
+						overflow: 'hidden'
+					}}>{image}</CardMedia>
 					<CardTitle title={recipe.name} />
 				</Card>
 			</li>
