@@ -110,51 +110,56 @@ class RecipeForm extends Component {
 
 	onCategoryChange = (e, index, value) => {
 		this.setState({
-			recipe: Object.assign(this.state.recipe, {
+			recipe: {
+				...this.state.recipe,
 				category: value
-			})
+			}
 		});
 	}
 
 	addIngredient = () => {
 		this.setState({
-			recipe: Object.assign({}, this.state.recipe, {
+			recipe: {
+				...this.state.recipe,
 				ingredients: this.state.recipe.ingredients.concat({quantity: '', unit: '', text: ''})
-			})
+			}
 		});
 	}
 
 	addMethodStep = () => {
 		this.setState({
-			recipe: Object.assign({}, this.state.recipe, {
+			recipe: {
+				...this.state.recipe,
 				method: this.state.recipe.method.concat({text: ''})
-			})
+			}
 		});
 	}
 
 	onIngredientChange = (ingredientIndex, changes) => {
 		this.setState({
-			recipe: Object.assign({}, this.state.recipe, {
+			recipe: {
+				...this.state.recipe,
 				ingredients: this.state.recipe.ingredients.map((ingredient, index) => {
 					if(index === ingredientIndex){
 						return Object.assign(ingredient, changes)
 					}
 					return ingredient;
 				})
-			})
+			}
 		});
 	}
 
 	onMethodStepChange = (stepIndex, changes) => {
 		this.setState({
-			recipe: Object.assign({}, this.state.recipe, {
+			recipe: {
+				...this.state.recipe,
 				method: this.state.recipe.method.map((step, index) => {
 					if(index === stepIndex){
 						return Object.assign(step, changes)
 					}
 					return step;
 				})
-			})
+			}
 		});
 	}
 
