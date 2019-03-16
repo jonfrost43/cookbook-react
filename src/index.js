@@ -6,8 +6,8 @@ import { cookbookApp } from './model/reducers';
 import { logger } from './model/middleware';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import cyan from '@material-ui/core/colors/cyan';
 import deepOrange from '@material-ui/core/colors/deepOrange';
-import grey from '@material-ui/core/colors/grey';
 
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
@@ -16,15 +16,18 @@ let store = createStore(cookbookApp, {recipes:[], app: {}}, applyMiddleware(logg
 
 const muiTheme = createMuiTheme({
 	palette: {
-		accent1Color: deepOrange['A200'],
-		textColor: grey['900']
+		primary: cyan,
+		secondary: deepOrange
 	},
-	fontFamily: 'Raleway, sans-serif'
+	typography: {
+		fontFamily: 'Raleway, sans-serif',
+		useNextVariants: true
+	}
 });
 
 ReactDOM.render(
 	<Provider store={store}>
-		<MuiThemeProvider muiTheme={muiTheme}>
+		<MuiThemeProvider theme={muiTheme}>
 			<BrowserRouter>
 				<App />
 			</BrowserRouter>

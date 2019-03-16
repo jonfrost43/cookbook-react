@@ -2,12 +2,18 @@ import React, { Component, Children } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import AppBar from '@material-ui/core/AppBar';
+import ToolBar from '@material-ui/core/ToolBar';
+import Typography from '@material-ui/core/Typography';
 import NavTop from './component/NavTop';
 
 const RouteWithAppBar = ({ component: Component, ...rest }) => (
 	<Route {...rest} render={props => (
 		<Component {...props}>
-			<AppBar title="Cookbook" />
+			<AppBar position="static">
+				<ToolBar>
+					<Typography component="h1" variant="h5">Cookbook</Typography>
+				</ToolBar>
+			</AppBar>
 		</Component>
 	)} />
 )
