@@ -4,21 +4,20 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { cookbookApp } from './model/reducers';
 import { logger } from './model/middleware';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { deepOrangeA200, darkBlack } from 'material-ui/styles/colors';
+
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import deepOrange from '@material-ui/core/colors/deepOrange';
+import grey from '@material-ui/core/colors/grey';
+
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 
-injectTapEventPlugin();
-
 let store = createStore(cookbookApp, {recipes:[], app: {}}, applyMiddleware(logger));
 
-const muiTheme = getMuiTheme({
+const muiTheme = createMuiTheme({
 	palette: {
-		accent1Color: deepOrangeA200,
-		textColor: darkBlack
+		accent1Color: deepOrange['A200'],
+		textColor: grey['900']
 	},
 	fontFamily: 'Raleway, sans-serif'
 });

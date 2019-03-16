@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 class RecipeMethodStep extends Component {
 	onTextChange = (e, value) => {
@@ -33,7 +33,7 @@ const RecipeMethod = props => {
 				return <RecipeMethodStep key={index} index={index} text={step.text} onChange={props.onChange}></RecipeMethodStep>;
 			})}
 			</ol>
-			<RaisedButton label="Add step" primary={true} onClick={props.add} style={{float:'right'}} />
+			<Button label="Add step" primary={true} onClick={props.add} style={{float:'right'}} />
         </fieldset>
 	);
 }

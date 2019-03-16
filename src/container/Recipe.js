@@ -1,11 +1,11 @@
 import React, { Component, Children } from 'react';
-import Paper from 'material-ui/Paper';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationBack from 'material-ui/svg-icons/navigation/arrow-back';
-import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import NavigationBack from '@material-ui/icons/ArrowBack';
+import EditIcon from '@material-ui/icons/Edit';
 
 import { connect } from 'react-redux';
 import { addRecipe, deleteRecipe } from '../model/actions';
@@ -34,16 +34,16 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-const AppBarMenu = (props) => (
-	<IconMenu
-		iconButtonElement={<IconButton><MoreVertIcon color="white" /></IconButton>}
+const AppBarMenu = (props) => [
+	<IconButton><MoreVertIcon color="white" /></IconButton>,
+	<Menu
 		targetOrigin={{horizontal: 'right', vertical: 'top'}}
 		anchorOrigin={{horizontal: 'right', vertical: 'top'}}
 	>
 		<MenuItem primaryText="Edit" onClick={props.onClickEdit} />
 		<MenuItem primaryText="Delete" onClick={props.onClickDelete} />
-	</IconMenu>
-);
+	</Menu>
+];
 
 class Recipe extends Component {
 	constructor(props){

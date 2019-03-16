@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardHeader from '@material-ui/core/CardHeader';
 
 class _RecipeListItem extends Component {
 	onClickRecipe = () => {
@@ -22,7 +24,7 @@ class _RecipeListItem extends Component {
 						maxHeight: '120px',
 						overflow: 'hidden'
 					}}>{image}</CardMedia>
-					<CardTitle title={recipe.name} />
+				<CardHeader title={recipe.name} />
 				</Card>
 			</li>
 		);

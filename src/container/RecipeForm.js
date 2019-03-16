@@ -1,15 +1,15 @@
 import React, { Component, Children } from 'react';
-import Paper from 'material-ui/Paper';
-import IconButton from 'material-ui/IconButton';
-import NavigationBack from 'material-ui/svg-icons/navigation/arrow-back';
-import DoneIcon from 'material-ui/svg-icons/action/done';
+import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
+import NavigationBack from '@material-ui/icons/ArrowBack';
+import DoneIcon from '@material-ui/icons/Done';
 import Ingredients from '../component/Ingredients';
 import RecipeMethod from '../component/RecipeMethod';
 import ImageUpload from '../component/ImageUpload';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
+import TextField from '@material-ui/core/TextField';
+import SelectField from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { addRecipe, editRecipe } from '../model/actions';
 import categories from '../data/categories'
@@ -225,7 +225,7 @@ class RecipeForm extends Component {
 								<TextField name="tags" floatingLabelText="Tags" hintText="Add tags..." />
 							</div>
 						</fieldset>
-						<RaisedButton label="Done" secondary={true} onClick={this.onSubmit} />
+						<Button label="Done" secondary={true} onClick={this.onSubmit} />
 					</form>
 				</Paper>
 			</div>

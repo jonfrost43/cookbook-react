@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
+import TextField from '@material-ui/core/TextField';
+import SelectField from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 import './ingredients.css';
 
 class Ingredient extends Component {
@@ -48,7 +48,7 @@ var Ingredients = props => {
 				return <Ingredient key={index} index={index} quantity={ingredient.quantity} unit={ingredient.unit} text={ingredient.text} onChange={props.onChange}></Ingredient>
 			})}
 			</ol>
-			<RaisedButton label="Add ingredient" primary={true} onClick={props.add} style={{float:'right'}} />
+			<Button label="Add ingredient" primary={true} onClick={props.add} style={{float:'right'}} />
 		</fieldset>
 	);
 };

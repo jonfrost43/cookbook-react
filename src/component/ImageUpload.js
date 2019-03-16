@@ -1,11 +1,11 @@
 import React, { Component, createRef } from 'react';
-import AddPhotoIcon from 'material-ui/svg-icons/image/add-a-photo';
-import IconButton from 'material-ui/IconButton';
-import DeleteIcon from 'material-ui/svg-icons/action/delete';
-import FullScreenIcon from 'material-ui/svg-icons/navigation/fullscreen';
-import FullScreenExitIcon from 'material-ui/svg-icons/navigation/fullscreen-exit';
-import LinearProgress from 'material-ui/LinearProgress';
-import { deepOrangeA200 } from 'material-ui/styles/colors';
+import AddPhotoIcon from '@material-ui/icons/AddAPhoto';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import FullScreenIcon from '@material-ui/icons/Fullscreen';
+import FullScreenExitIcon from '@material-ui/icons/FullscreenExit';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import deepOrange from '@material-ui/core/colors/deepOrange';
 import './imageUpload.css';
 
 
@@ -93,7 +93,7 @@ class ImageUpload extends Component {
 						<IconButton onClick={this.handleClickFullScreen}><FullScreenIcon /></IconButton>
 						<IconButton onClick={this.handleClickDelete}><DeleteIcon /></IconButton>
 					</div>
-					<LinearProgress mode="indeterminate" color={deepOrangeA200} style={{
+					<LinearProgress mode="indeterminate" color={deepOrange.A200} style={{
 						backgroundColor:'none',
 						borderRadius:0,
 						height: this.state.isUploading ? '4px' : '0px',

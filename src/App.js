@@ -1,7 +1,7 @@
 import React, { Component, Children } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
-import AppBar from 'material-ui/AppBar';
+import AppBar from '@material-ui/core/AppBar';
 import NavTop from './component/NavTop';
 
 const RouteWithAppBar = ({ component: Component, ...rest }) => (

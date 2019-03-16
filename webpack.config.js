@@ -13,6 +13,7 @@ module.exports = {
 		rules: [
 			{
 				test: /.js?$/,
+				include: path.resolve(__dirname, 'src'),
 				loader: 'babel-loader',
 				query: {
 					presets: ['es2015', 'react'],
@@ -33,6 +34,16 @@ module.exports = {
 	devServer: {
 		contentBase: 'www/dist/',
 		historyApiFallback: true
+	},
+	optimization: {
+		splitChunks: {
+			chunks: 'all',
+			cacheGroups: {
+				vendors: {
+					test: /[\\/]node_modules[\\/]((?!@material-ui).)+/
+				}
+			}
+		}
 	},
 	plugins: [
 		new CleanWebpackPlugin()

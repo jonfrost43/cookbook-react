@@ -1,7 +1,7 @@
 import React, { Component, Children } from 'react';
 import RecipeList from '../component/RecipeList';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import FloatingActionButton from '@material-ui/core/Fab';
+import ContentAdd from '@material-ui/icons/Add';
 import { connect } from 'react-redux';
 import { setDrawer, addRecipe, clearRecipes } from '../model/actions';
 import categories from '../data/categories';

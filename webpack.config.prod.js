@@ -14,6 +14,7 @@ module.exports = {
 		rules: [
 			{
 				test: /.js?$/,
+				include: path.resolve(__dirname, 'src'),
 				loader: 'babel-loader',
 				query: {
 					presets: ['es2015', 'react'],
@@ -35,7 +36,7 @@ module.exports = {
 			chunks: 'all',
 			cacheGroups: {
 				vendors: {
-					test: /[\\/]node_modules[\\/]((?!material-ui).)+/
+					test: /[\\/]node_modules[\\/]((?!@material-ui).)+/
 				}
 			}
 		}
