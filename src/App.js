@@ -15,17 +15,17 @@ const RouteWithAppBar = ({ component: Component, ...rest }) => (
 const Loading = () => <div>Loading...</div>
 
 const Home = Loadable({
-	loader: () => import('./container/Home'),
+	loader: () => import('./container/Home' /* webpackChunkName: "home" */),
 	loading: Loading
 })
 
 const Recipe = Loadable({
-	loader: () => import('./container/Recipe'),
+	loader: () => import('./container/Recipe' /* webpackChunkName: "recipe" */),
 	loading: Loading
 })
 
 const RecipeForm = Loadable({
-	loader: () => import('./container/RecipeForm'),
+	loader: () => import('./container/RecipeForm' /* webpackChunkName: "recipeForm" */),
 	loading: Loading
 })
 

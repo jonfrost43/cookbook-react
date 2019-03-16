@@ -1,12 +1,13 @@
-var path = require('path');
+var path = require('path'),
+	CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
 	mode: 'development',
 	entry: './src/index.js',
 	output: {
-		path: path.join(__dirname, 'www'),
-		publicPath: '/',
-		filename: 'bundle.js'
+		path: path.join(__dirname, 'www/dist'),
+		publicPath: '/dist/',
+		filename: '[name].bundle.js'
 	},
 	module: {
 		rules: [
@@ -30,7 +31,10 @@ module.exports = {
 	},
 	devtool: 'cheap-module-source-map',
 	devServer: {
-		contentBase: 'www/',
+		contentBase: 'www/dist/',
 		historyApiFallback: true
-	}
+	},
+	plugins: [
+		new CleanWebpackPlugin()
+	]
 };

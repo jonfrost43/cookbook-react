@@ -73,7 +73,8 @@ app.get('*', (req, res) => {
 			</head>
 			<body>
 				<div id="app"></div>
-				<script src="/bundle.js"></script>
+				<script src="/dist/vendors~main.bundle.js"></script>
+				<script src="/dist/main.bundle.js"></script>
 			</body>
 		</html>
 	`);

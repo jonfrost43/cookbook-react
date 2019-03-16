@@ -1,13 +1,14 @@
 var path = require('path'),
-	webpack = require('webpack');
+	CleanWebpackPlugin = require('clean-webpack-plugin'),
+	BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
 	mode: 'production',
 	entry: './src/index.js',
 	output: {
-		path: path.join(__dirname, 'www'),
-		publicPath: '/',
-		filename: 'bundle.js'
+		path: path.join(__dirname, 'www/dist'),
+		publicPath: '/dist/',
+		filename: '[name].bundle.js'
 	},
 	module: {
 		rules: [
@@ -28,5 +29,23 @@ module.exports = {
 				loaders: ['style-loader', 'css-loader']
 			}
 		]
-	}
+	},
+	optimization: {
+		splitChunks: {
+			chunks: 'all',
+			cacheGroups: {
+				vendors: {
+					test: /[\\/]node_modules[\\/]((?!material-ui).)+/
+				}
+			}
+		}
+	},
+	plugins: [
+		new CleanWebpackPlugin(),
+
+		new BundleAnalyzerPlugin({
+			analyzerMode: 'static',
+			openAnalyzer: false
+		})
+	]
 };
