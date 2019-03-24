@@ -199,7 +199,7 @@ class RecipeForm extends Component {
 					</ToolBar>
 				)}
 
-				<Paper rounded={false} style={{maxWidth:700, margin:'0 auto'}}>
+				<Paper square={true} style={{maxWidth:700, margin:'0 auto'}}>
 					<form name="createRecipe">
 						<fieldset className="image">
 							<ImageUpload id={'imageUpload_'+this.state.recipe._id}

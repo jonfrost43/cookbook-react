@@ -115,7 +115,7 @@ class Recipe extends Component {
 					</ToolBar>
 				)}
 
-				<Paper rounded={false} style={{maxWidth:600, margin:'0 auto'}}>
+				<Paper square={true} style={{maxWidth:600, margin:'0 auto'}}>
 					<img src={recipe.image} className="heroImage" />
 					<div className="text">
 						<h3>Ingredients</h3>
