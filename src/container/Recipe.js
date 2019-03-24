@@ -1,8 +1,10 @@
-import React, { Component, Children } from 'react';
+import React, { Component, Children, useState } from 'react';
 import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import ToolBar from '@material-ui/core/ToolBar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import NavigationBack from '@material-ui/icons/ArrowBack';
 import EditIcon from '@material-ui/icons/Edit';
@@ -34,16 +36,34 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-const AppBarMenu = (props) => [
-	<IconButton><MoreVertIcon color="white" /></IconButton>,
-	<Menu
-		targetOrigin={{horizontal: 'right', vertical: 'top'}}
-		anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-	>
-		<MenuItem primaryText="Edit" onClick={props.onClickEdit} />
-		<MenuItem primaryText="Delete" onClick={props.onClickDelete} />
-	</Menu>
-];
+const AppBarMenu = (props) => {
+	const [menuState, setMenuState] = useState({anchorEl: null, open: false});
+
+	return (
+		<div>
+			<IconButton color="inherit" onClick={(event) => setMenuState({anchorEl: event.currentTarget, open: true})}>
+				<MoreVertIcon />
+			</IconButton>
+			<Menu
+				id="menu-appbar"
+				anchorEl={menuState.anchorEl}
+				anchorOrigin={{
+					vertical: 'top',
+					horizontal: 'right',
+				}}
+				transformOrigin={{
+					vertical: 'top',
+					horizontal: 'right',
+				}}
+				open={menuState.open}
+				onClose={() => setMenuState({anchorEl: null, open: false})}
+			>
+				<MenuItem onClick={props.onClickEdit}>Edit</MenuItem>
+				<MenuItem onClick={props.onClickDelete}>Delete</MenuItem>
+			</Menu>
+		</div>
+	)
+};
 
 class Recipe extends Component {
 	constructor(props){
@@ -85,12 +105,15 @@ class Recipe extends Component {
 			<div className="recipe">
 				<DocumentTitle title={recipe.name} />
 
-				{React.cloneElement(appBar, Object.assign({}, appBar.props, {
-					title: recipe.name,
-					onLeftIconButtonClick: null,
-					iconElementLeft: <IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>,
-					iconElementRight: <AppBarMenu onClickEdit={this.onClickEdit} onClickDelete={this.onClickDelete} />
-				}))}
+				{React.cloneElement(appBar, appBar.props,
+					<ToolBar>
+						<IconButton color="inherit" aria-label="Menu" onClick={this.onClickBack}>
+							<NavigationBack />
+						</IconButton>
+						<Typography component="h1" variant="h5">{recipe.name}</Typography>
+						<AppBarMenu onClickEdit={this.onClickEdit} onClickDelete={this.onClickDelete} />
+					</ToolBar>
+				)}
 
 				<Paper rounded={false} style={{maxWidth:600, margin:'0 auto'}}>
 					<img src={recipe.image} className="heroImage" />

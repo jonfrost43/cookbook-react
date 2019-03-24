@@ -1,5 +1,9 @@
 import React, { Component, Children } from 'react';
 import RecipeList from '../component/RecipeList';
+import ToolBar from '@material-ui/core/ToolBar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 import FloatingActionButton from '@material-ui/core/Fab';
 import ContentAdd from '@material-ui/icons/Add';
 import { connect } from 'react-redux';
@@ -88,9 +92,14 @@ class Home extends Component {
 
 		return (
 			<div>
-				{React.cloneElement(appBar, Object.assign({}, appBar.props, {
-					onLeftIconButtonClick: this.toggleDrawer
-				}))}
+				{React.cloneElement(appBar, appBar.props,
+					<ToolBar>
+						<IconButton color="inherit" aria-label="Menu" onClick={this.toggleDrawer}>
+							<MenuIcon />
+						</IconButton>
+						<Typography component="h1" variant="h5">Cookbook</Typography>
+					</ToolBar>
+				)}
 
 				<div className="content">
 					<RecipeList recipes={this.props.recipes} />

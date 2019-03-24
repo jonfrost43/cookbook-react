@@ -1,5 +1,7 @@
 import React, { Component, Children } from 'react';
 import Paper from '@material-ui/core/Paper';
+import ToolBar from '@material-ui/core/ToolBar';
+import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import NavigationBack from '@material-ui/icons/ArrowBack';
 import DoneIcon from '@material-ui/icons/Done';
@@ -185,12 +187,17 @@ class RecipeForm extends Component {
 
 		return (
 			<div>
-				{React.cloneElement(appBar, Object.assign({}, appBar.props, {
-					title: this.state.appBarTitle,
-					onLeftIconButtonClick: null,
-					iconElementLeft: <IconButton onClick={this.onClickBack}><NavigationBack /></IconButton>,
-					iconElementRight: <IconButton onClick={this.onSubmit}><DoneIcon /></IconButton>
-				}))}
+				{React.cloneElement(appBar, appBar.props,
+					<ToolBar>
+						<IconButton color="inherit" aria-label="Menu" onClick={this.onClickBack}>
+							<NavigationBack />
+						</IconButton>
+						<Typography component="h1" variant="h5">{this.state.appBarTitle}</Typography>
+						<IconButton color="inherit" aria-label="Done" onClick={this.onSubmit}>
+							<DoneIcon />
+						</IconButton>
+					</ToolBar>
+				)}
 
 				<Paper rounded={false} style={{maxWidth:700, margin:'0 auto'}}>
 					<form name="createRecipe">
